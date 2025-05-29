@@ -14,9 +14,404 @@
             background-color: #001233;
             color: #f4f4f4;
             min-height: 100vh;
+            overflow-y: auto; /* Menambahkan scroll utama di body */
+        }
+        
+        nav {
+            background-color: #001845;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #f4f4f4;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav a:hover {
+            color: #fff;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #f4f4f4;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
         }
         
         .hidden { display: none; }
+        
+        .section {
+            border: 1px solid #002855;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #002855;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .film-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            /* Menghapus overflow-y dan scrollbar styling */
+        }
+        
+        .film-card {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #001845;
+            border-radius: 12px;
+            padding: 15px;
+            background-color: #001845;
+            color: #f4f4f4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .film-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+            border-color: #002855;
+        }
+        
+        .film-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .film-card:hover img {
+            transform: scale(1.02);
+        }
+        
+        .film-info {
+            flex-grow: 1;
+        }
+        
+        .film-info h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .film-info p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #c0d6df;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+            border: 1px solid #002855;
+            padding: 12px;
+            background: #001845;
+            color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+            resize: none;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #f4f4f4;
+        }
+        
+        .stars span {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 0 3px;
+            transition: transform 0.2s ease;
+        }
+        
+        .stars span:hover {
+            transform: scale(1.2);
+        }
+        
+        button {
+            background-color: #002855;
+            color: #f4f4f4;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: #001845;
+            transform: translateY(-2px);
+        }
+        
+        .resetbut {
+            margin-top: 15px;
+            background: #001233;
+            color: #f4f4f4;
+            border: 1px solid #002855;
+        }
+        
+        .resetbut:hover {
+            background: #002855;
+        }
+        
+        .film-card a {
+            color: #f4f4f4;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .film-card a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+        #commentSection p {
+            color: #f4f4f4;
+            background-color: #001845;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #002855;
+            transition: all 0.3s ease;
+        }
+        
+        #commentSection p:hover {
+            transform: translateX(5px);
+            border-left-color: #f4f4f4;
+        }
+        
+        .backbtn,
+        .actionbtn {
+            background-color: #001845 !important;
+            color: #fff !important;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-bottom: 15px;
+            margin-right: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .backbtn:hover,
+        .actionbtn:hover {
+            background-color: #002855 !important;
+            transform: translateY(-2px);
+        }
+        
+        .film-detail-container {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .film-poster-container {
+            flex: 0 0 300px;
+            position: relative;
+        }
+        
+        .film-poster-container img {
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .film-poster-container:hover img {
+            transform: scale(1.03);
+        }
+        
+        .film-content {
+            flex: 1;
+        }
+        
+        .synopsis-box {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #001845;
+            border-radius: 8px;
+            line-height: 1.7;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .synopsis-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #f4f4f4;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #002855;
+            padding-bottom: 8px;
+        }
+        
+        #searchBox {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #002855;
+            background-color: #001845;
+            color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        #searchBox:focus {
+            outline: none;
+            border-color: #f4f4f4;
+            box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
+        }
+        
+        #commentName {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #002855;
+            background: #001845;
+            color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        #commentName:focus {
+            outline: none;
+            border-color: #f4f4f4;
+            box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
+        }
+        
+        .form-container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            bottom: -8px;
+            left: 0;
+            background-color: #002855;
+            border-radius: 3px;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 20px 0 10px;
+            color: #fff;
+        }
+        
+        .rating-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .current-rating {
+            font-weight: 500;
+            color: #f4f4f4;
+            background-color: #001845;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .film-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .film-meta p {
+            background-color: #001845;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .film-meta p i {
+            font-size: 0.8rem;
+        }
+        
+        @media (max-width: 768px) {
+            .film-detail-container {
+                flex-direction: column;
+            }
+            
+            .film-poster-container {
+                flex: 1;
+                width: 100%;
+            }
+            
+            .film-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            nav {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            nav a {
+                margin: 5px 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
         
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
@@ -36,166 +431,163 @@
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+
+        /* New styles for header and footer */
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-container {
+            width: 100%;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px 0;
+            border-top: 1px solid #002855;
+            background-color: #001845;
+            border-radius: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: #f4f4f4;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .owner-info {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #c0d6df;
+        }
+        
+        .copyright {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #8a9ba8;
+        }
     </style>
 </head>
-<body class="p-2 md:p-6">
-    <!-- Navigation -->
-    <nav class="bg-[#001845] p-3 rounded-lg shadow-md mb-4 flex flex-wrap justify-center gap-3 md:gap-6">
-        <a href="#home" class="text-white hover:text-white font-medium transition-all relative">
-            <i class="fas fa-home mr-1"></i> Home
-        </a>
-        <a href="#liked" class="text-white hover:text-white font-medium transition-all relative">
-            <i class="fas fa-heart mr-1"></i> Favorite
-        </a>
-        <a href="#bookmarked" class="text-white hover:text-white font-medium transition-all relative">
-            <i class="fas fa-bookmark mr-1"></i> Bookmark
-        </a>
+<body class="p-4 md:p-6">
+    <nav class="fade-in">
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#liked"><i class="fas fa-heart"></i> Favorite</a>
+        <a href="#bookmarked"><i class="fas fa-bookmark"></i> Bookmark</a>
     </nav>
 
-    <!-- Home Section -->
-    <div id="home" class="bg-[#002855] rounded-xl p-4 shadow-lg">
-        <div class="flex flex-col gap-4 mb-6">
-            <div class="flex items-center">
-                <p class="text-2xl md:text-3xl font-bold text-white">
-                    <i class="fas fa-film mr-2"></i>Letterhere
-                </p>
+    <div id="home" class="section fade-in">
+        <div class="header-container">
+            <div class="title-container">
+                <p class="text-3xl font-family: arrial font-bold"><i class="fas fa-film mr-3 "></i>Letterhere</p class="text5xl">
             </div>
-            <div class="w-full">
-                <input type="text" id="searchBox" placeholder="Search for movies..." 
-                       class="w-full p-3 rounded-lg border border-[#002855] bg-[#001845] text-white focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20"
-                       oninput="searchFilms()" />
+            <div class="search-container">
+                <input type="text" id="searchBox" placeholder="Search for movies..." oninput="searchFilms()" />
             </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="filmList"></div>
+        <div class="film-grid" id="filmList"></div>
     </div>
 
-    <!-- Film Detail Section -->
-    <div id="filmDetail" class="bg-[#002855] rounded-xl p-4 shadow-lg hidden">
-        <button onclick="goBackToHome()" class="bg-[#001845] text-white rounded-lg px-4 py-2 mb-4 flex items-center gap-2 hover:bg-[#002855] transition-all">
-            <i class="fas fa-arrow-left"></i> Back to Movies
-        </button>
+    <div id="filmDetail" class="section hidden fade-in">
+        <button class="backbtn" onclick="goBackToHome()"><i class="fas fa-arrow-left"></i> Back to Movies</button>
+        <h1 id="filmTitle"></h1>
         
-        <h1 id="filmTitle" class="text-2xl md:text-3xl font-bold text-white mb-4"></h1>
-        
-        <div class="flex flex-wrap gap-2 mb-4">
-            <p id="filmYear" class="bg-[#001845] px-3 py-1 rounded-full text-sm flex items-center gap-1">
-                <i class="fas fa-calendar-alt text-xs"></i> <span id="yearText"></span>
-            </p>
-            <p id="filmDirector" class="bg-[#001845] px-3 py-1 rounded-full text-sm flex items-center gap-1">
-                <i class="fas fa-user text-xs"></i> <span id="directorText"></span>
-            </p>
-            <p id="filmGenre" class="bg-[#001845] px-3 py-1 rounded-full text-sm flex items-center gap-1">
-                <i class="fas fa-tag text-xs"></i> <span id="genreText"></span>
-            </p>
+        <div class="film-meta">
+            <p id="filmYear"><i class="fas fa-calendar-alt"></i> <span id="yearText"></span></p>
+            <p id="filmDirector"><i class="fas fa-user"></i> <span id="directorText"></span></p>
+            <p id="filmGenre"><i class="fas fa-tag"></i> <span id="genreText"></span></p>
         </div>
         
-        <div class="flex flex-col md:flex-row gap-6">
-            <div class="w-full md:w-1/3 lg:w-1/4">
-                <img id="filmPoster" src="" alt="Poster" class="w-full rounded-lg shadow-xl" />
+        <div class="film-detail-container">
+            <div class="film-poster-container">
+                <img id="filmPoster" src="" alt="Poster" width="300" class="fade-in" />
             </div>
-            <div class="w-full md:w-2/3 lg:w-3/4">
-                <div class="bg-[#001845] p-4 rounded-lg mb-4">
-                    <div class="font-semibold text-lg mb-2 border-b border-[#002855] pb-2">
-                        <i class="fas fa-book-open mr-2"></i>Synopsis
-                    </div>
-                    <div id="filmSynopsis" class="text-sm md:text-base"></div>
+            <div class="film-content">
+                <div class="synopsis-box fade-in">
+                    <div class="synopsis-title"><i class="fas fa-book-open mr-2"></i>Synopsis</div>
+                    <div id="filmSynopsis"></div>
                 </div>
                 
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <button onclick="toggleLike()" id="likeBtn" class="bg-[#001845] text-white rounded-lg px-4 py-2 flex items-center gap-2 hover:bg-[#002855] transition-all pulse">
-                        <i class="far fa-heart"></i> Favorite
-                    </button>
-                    <button onclick="toggleBookmark()" id="bookmarkBtn" class="bg-[#001845] text-white rounded-lg px-4 py-2 flex items-center gap-2 hover:bg-[#002855] transition-all">
-                        <i class="far fa-bookmark"></i> Bookmark
-                    </button>
+                <div class="flex flex-wrap gap-3">
+                    <button class="actionbtn pulse" onclick="toggleLike()" id="likeBtn"><i class="fas fa-heart"></i> Favorite</button>
+                    <button class="actionbtn" onclick="toggleBookmark()" id="bookmarkBtn"><i class="fas fa-bookmark"></i> Bookmark</button>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-3 mb-4">
-                    <h3 class="text-lg font-semibold">Your Rating:</h3>
-                    <div class="flex gap-1" id="starContainer"></div>
-                    <div class="bg-[#001845] px-3 py-1 rounded-full text-sm flex items-center gap-1" id="currentRating">
-                        <i class="fas fa-star text-yellow-400"></i> <span id="ratingValue">0</span>/5
+                <div class="rating-container">
+                    <h3>Your Rating:</h3>
+                    <div class="stars" id="starContainer"></div>
+                    <div class="current-rating" id="currentRating">
+                        <i class="fas fa-star"></i> <span id="ratingValue">0</span>/5
                     </div>
                 </div>
 
-                <h3 class="text-lg font-semibold mb-2"><i class="fas fa-comments mr-2"></i>Comments:</h3>
-                <form onsubmit="addComment(event)" class="mb-4">
-                    <input type="text" id="commentName" placeholder="Your name" required
-                           class="w-full p-3 rounded-lg border border-[#002855] bg-[#001845] text-white mb-2 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20" />
-                    <textarea id="commentBox" placeholder="Write your review..." required
-                              class="w-full p-3 rounded-lg border border-[#002855] bg-[#001845] text-white mb-2 h-24 focus:outline-none focus:border-white focus:ring-2 focus:ring-white/20"></textarea>
-                    <button type="submit" class="bg-[#001845] text-white rounded-lg px-4 py-2 flex items-center gap-2 hover:bg-[#002855] transition-all">
-                        <i class="fas fa-paper-plane"></i> Submit
-                    </button>
+                <h3><i class="fas fa-comments mr-2"></i>Comments:</h3>
+                <form onsubmit="addComment(event)" class="form-container">
+                    <input type="text" id="commentName" placeholder="Your name" required />
+                    <textarea id="commentBox" placeholder="Write your review..." required></textarea><br />
+                    <button class="actionbtn" type="submit"><i class="fas fa-paper-plane"></i> Submit</button>
                 </form>
 
-                <div id="commentSection" class="space-y-2"></div>
+                <div id="commentSection" class="mt-4"></div>
             </div>
         </div>
     </div>
 
-    <!-- Profile Section -->
-    <div id="profile" class="bg-[#002855] rounded-xl p-4 shadow-lg hidden">
-        <h1 class="text-2xl md:text-3xl font-bold text-white mb-4">
-            <i class="fas fa-user mr-2"></i>User Profile
-        </h1>
-        <p class="text-lg mb-4">
-            <strong><i class="fas fa-signature mr-2"></i>Name:</strong> 
-            <span id="profileName" class="font-medium">Guest</span>
-        </p>
-        <p class="text-lg mb-2">
-            <strong><i class="fas fa-star mr-2"></i>Your Reviews:</strong>
-        </p>
+    <div id="profile" class="section hidden fade-in">
+        <h1><i class="fas fa-user mr-3"></i>User Profile</h1>
+        <p class="text-lg mb-4"><strong><i class="fas fa-signature mr-2"></i>Name:</strong> <span id="profileName" class="font-medium">Guest</span></p>
+        <p class="text-lg mb-2"><strong><i class="fas fa-star mr-2"></i>Your Reviews:</strong></p>
         <ul id="userReviews" class="space-y-3"></ul>
     </div>
 
-    <!-- Liked Section -->
-    <div id="liked" class="bg-[#002855] rounded-xl p-4 shadow-lg hidden">
-        <h1 class="text-2xl md:text-3xl font-bold text-white mb-4">
-            <i class="fas fa-heart mr-2"></i>Favorite Movies
-        </h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="likedList"></div>
+    <div id="liked" class="section hidden fade-in">
+        <h1><i class="fas fa-heart mr-3"></i>Favorite Movies</h1>
+        <div class="film-grid" id="likedList"></div>
     </div>
 
-    <!-- Bookmarked Section -->
-    <div id="bookmarked" class="bg-[#002855] rounded-xl p-4 shadow-lg hidden">
-        <h1 class="text-2xl md:text-3xl font-bold text-white mb-4">
-            <i class="fas fa-bookmark mr-2"></i>Bookmarked Movies
-        </h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="bookmarkList"></div>
+    <div id="bookmarked" class="section hidden fade-in">
+        <h1><i class="fas fa-bookmark mr-3"></i>Bookmarked Movies</h1>
+        <div class="film-grid" id="bookmarkList"></div>
     </div>
 
-    <!-- Reset Button -->
-    <button onclick="resetStorage()" class="bg-[#001233] text-white rounded-lg px-4 py-2 mt-4 border border-[#002855] hover:bg-[#002855] transition-all">
-        <i class="fas fa-sync-alt mr-2"></i> Reset Data
-    </button>
+    <button class="resetbut" onclick="resetStorage()"><i class="fas fa-sync-alt"></i> Reset Data</button>
 
-    <!-- Footer -->
-    <footer class="text-center mt-8 py-6 border-t border-[#002855] bg-[#001845] rounded-lg">
-        <div class="flex justify-center gap-4 md:gap-6 my-4">
-            <a href="#" class="text-white text-2xl hover:text-white transition-all hover:-translate-y-1">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="text-white text-2xl hover:text-white transition-all hover:-translate-y-1">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="text-white text-2xl hover:text-white transition-all hover:-translate-y-1">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="#" class="text-white text-2xl hover:text-white transition-all hover:-translate-y-1">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="#" class="text-white text-2xl hover:text-white transition-all hover:-translate-y-1">
-                <i class="fab fa-tiktok"></i>
-            </a>
+    <div class="footer">
+        <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
         </div>
-        <div class="text-[#c0d6df] my-2">
-            <p>Yethebos Film Reviews</p>
+        <div class="owner-info">
+            <p> Yethebos Film Reviews </strong></p>
         </div>
-        <div class="text-[#8a9ba8] text-sm">
+        <div class="copyright">
             <p>© 2025 All Rights Reserved</p>
         </div>
-    </footer>
+    </div>
 
     <script>
         const films = [
@@ -612,24 +1004,14 @@
             allFilmCards = [];
             films.forEach((film, index) => {
                 const card = document.createElement("div");
-                card.className = "bg-[#001845] rounded-lg p-3 shadow-md hover:shadow-lg transition-all flex flex-col";
+                card.className = "film-card";
                 card.innerHTML = `
-                    <a href="#film-${index}" class="block">
-                        <img src="${film.poster}" alt="Poster" class="w-full h-64 md:h-80 object-cover rounded-lg mb-3" />
-                    </a>
-                    <div class="flex-grow">
-                        <h3 class="font-semibold text-lg mb-1">
-                            <a href="#film-${index}" class="hover:underline">${film.title}</a>
-                        </h3>
-                        <p class="text-sm text-gray-300 mb-1">
-                            <i class="fas fa-calendar-alt mr-1"></i> ${film.year}
-                        </p>
-                        <p class="text-sm text-gray-300 mb-1">
-                            <i class="fas fa-user mr-1"></i> ${film.director}
-                        </p>
-                        <p class="text-sm text-gray-300">
-                            <i class="fas fa-tag mr-1"></i> ${film.genre}
-                        </p>
+                    <a href="#film-${index}"><img src="${film.poster}" alt="Poster" /></a>
+                    <div class="film-info">
+                        <h3><a href="#film-${index}">${film.title}</a></h3>
+                        <p><strong><i class="fas fa-calendar-alt mr-1"></i>Year:</strong> ${film.year}</p>
+                        <p><strong><i class="fas fa-user mr-1"></i>Director:</strong> ${film.director}</p>
+                        <p><strong><i class="fas fa-tag mr-1"></i>Genre:</strong> ${film.genre}</p>
                     </div>
                 `;
                 container.appendChild(card);
@@ -657,10 +1039,9 @@
             const commentSection = document.getElementById("commentSection");
             commentSection.innerHTML = "";
             currentFilm.comments.forEach(comment => {
-                const div = document.createElement("div");
-                div.className = "bg-[#001845] p-3 rounded-lg border-l-4 border-[#002855] hover:border-white transition-all";
-                div.textContent = comment;
-                commentSection.appendChild(div);
+                const p = document.createElement("p");
+                p.textContent = comment;
+                commentSection.appendChild(p);
             });
             
             document.getElementById("likeBtn").innerHTML = currentFilm.likes 
@@ -696,8 +1077,7 @@
             container.innerHTML = "";
             for (let i = 1; i <= 5; i++) {
                 const star = document.createElement("span");
-                star.className = "cursor-pointer text-xl";
-                star.innerHTML = i <= selected ? '<i class="fas fa-star text-yellow-400"></i>' : '<i class="far fa-star text-yellow-400"></i>';
+                star.innerHTML = i <= selected ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
                 star.onclick = () => {
                     currentFilm.userRating = i;
                     document.getElementById("ratingValue").textContent = i;
@@ -722,10 +1102,9 @@
             const commentText = `${name} (${rating}⭐): ${text}`;
             currentFilm.comments.push(commentText);
 
-            const div = document.createElement("div");
-            div.className = "bg-[#001845] p-3 rounded-lg border-l-4 border-[#002855] hover:border-white transition-all";
-            div.textContent = commentText;
-            document.getElementById("commentSection").appendChild(div);
+            const p = document.createElement("p");
+            p.textContent = commentText;
+            document.getElementById("commentSection").appendChild(p);
 
             currentUser.reviews.push(`Comment on "${currentFilm.title}": ${text} (${rating}⭐)`);
             currentUser.name = name;
@@ -752,12 +1131,10 @@
             container.innerHTML = "";
             films.filter(f => f.likes).forEach((film, index) => {
                 const card = document.createElement("div");
-                card.className = "bg-[#001845] rounded-lg p-3 shadow-md hover:shadow-lg transition-all";
+                card.className = "film-card";
                 card.innerHTML = `
-                    <a href="#film-${films.indexOf(film)}" class="block">
-                        <img src="${film.poster}" alt="Poster" class="w-full h-64 object-cover rounded-lg mb-2" />
-                        <h3 class="font-semibold text-center">${film.title}</h3>
-                    </a>
+                    <a href="#film-${films.indexOf(film)}"><img src="${film.poster}" alt="Poster" /></a>
+                    <h3><a href="#film-${films.indexOf(film)}">${film.title}</a></h3>
                 `;
                 container.appendChild(card);
             });
@@ -768,12 +1145,10 @@
             container.innerHTML = "";
             films.filter(f => f.bookmarked).forEach((film, index) => {
                 const card = document.createElement("div");
-                card.className = "bg-[#001845] rounded-lg p-3 shadow-md hover:shadow-lg transition-all";
+                card.className = "film-card";
                 card.innerHTML = `
-                    <a href="#film-${films.indexOf(film)}" class="block">
-                        <img src="${film.poster}" alt="Poster" class="w-full h-64 object-cover rounded-lg mb-2" />
-                        <h3 class="font-semibold text-center">${film.title}</h3>
-                    </a>
+                    <a href="#film-${films.indexOf(film)}"><img src="${film.poster}" alt="Poster" /></a>
+                    <h3><a href="#film-${films.indexOf(film)}">${film.title}</a></h3>
                 `;
                 container.appendChild(card);
             });
