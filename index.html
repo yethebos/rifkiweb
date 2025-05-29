@@ -14,6 +14,7 @@
             background-color: #001233;
             color: #f4f4f4;
             min-height: 100vh;
+            overflow-y: auto; /* Menambahkan scroll utama di body */
         }
         
         nav {
@@ -74,25 +75,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
-            max-height: 700px;
-            overflow-y: auto;
-            padding-right: 10px;
-            scrollbar-width: thin;
-            scrollbar-color: #001845 #002855;
-        }
-        
-        .film-grid::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .film-grid::-webkit-scrollbar-track {
-            background: #002855;
-            border-radius: 10px;
-        }
-        
-        .film-grid::-webkit-scrollbar-thumb {
-            background-color: #001845;
-            border-radius: 10px;
+            /* Menghapus overflow-y dan scrollbar styling */
         }
         
         .film-card {
@@ -638,7 +621,7 @@
                 director: "Luca Guadagnino",
                 genre: "Action",
                 poster: "https://i.pinimg.com/736x/54/37/b6/5437b6adfafad5d9b95bcb08a12de7d8.jpg",
-                synopsis: "Film Challengers (2024) bercerita tentang Tashi, mantan bintang tenis yang menjadi pelatih suaminya, Art. Art harus menghadapi mantan sahabat sekaligus mantan kekasih Tashi, Patrick, dalam turnamen tenis. Pertandingan ini memicu ketegangan emosional dan konflik lama di antara mereka. Film ini mengangkat tema cinta, pengkhianatan, dan ambisi. Challengers menampilkan kisah hubungan rumit dengan latar dunia olahraga."
+                synopsis: "Film Challengers (2024) bercerita tentang Tashi, mantan bintang tenis yang menjadi pelatih suaminya, Art. Art harus menghadapi mantan sahabat sekaligus mantan kekasih Tashi, Patrick, dalam turnamen tenis. Pertandingan ini memicu ketegangan emosional dan konflik lama di antara mereka. Film ini mengangkat tema cinta, pengkhianatan, and ambisi. Challengers menampilkan kisah hubungan rumit dengan latar dunia olahraga."
             },
             {
                 title: "Wicked",
@@ -718,7 +701,7 @@
                 director: "Bong Joon-ho",
                 genre: "Thriller",
                 poster: "https://i.pinimg.com/736x/bc/e3/c2/bce3c2cbd502d88d137200ee7d928f09.jpg",
-                synopsis: "Parasite (2019) Keluarga Kim yang hidup dalam kemiskinan secara licik menyusup ke kehidupan keluarga kaya Park sebagai pekerja rumah tangga. Perlahan, rahasia gelap dan ketegangan sosial mulai terungkap, memicu konflik yang tak terduga. Film ini mengkritik ketimpangan kelas dengan nuansa thriller dan satir gelap. Parasite (2019) memenangkan berbagai penghargaan internasional dan mendapat pujian kritis. Cerita ini menggambarkan perjuangan dan dampak jurang sosial secara tajam dan mendalam."
+                synopsis: "Parasite (2019) Keluarga Kim yang hidup dalam kemiskinan secara licik menyusup ke kehidupan keluarga kaya Park sebagai pekerja rumah tangga. Perlahan, rahasia gelap dan ketegangan sosial mulai terungkap, memicu konflik yang tak terduga. Film ini mengkritik ketimpangan kelas dengan nuansa thriller dan satir gelap. Parasite (2019) memenangkan berbagai penghargaan internasional dan mendapat pujian kritis. Cerita ini menggambarkan perjuangan dan dampak jurang sosial secara tajam and mendalam."
             },
             {
                 title: "Wednesday",
@@ -798,7 +781,7 @@
                 director: "Robert Schwentke",
                 genre: "Action",
                 poster: "https://i.pinimg.com/736x/42/b6/86/42b6860b32bd3936f3439af5bb87df87.jpg",
-                synopsis: "Allegiant (2016) Tris dan Four melintasi tembok kota Chicago untuk mencari kebenaran tentang dunia luar. Mereka menemukan bahwa kota mereka hanyalah bagian dari eksperimen genetik yang diawasi oleh lembaga rahasia. Saat Tris mulai mempercayai pemimpin lembaga tersebut, Four mencurigai adanya niat jahat di baliknya. Ketegangan meningkat ketika mereka harus menyelamatkan kota dari ancaman besar. Film ini menyoroti konflik moral dan perjuangan melawan kontrol sosial dalam dunia distopia."
+                synopsis: "Allegiant (2016) Tris dan Four melintasi tembok kota Chicago untuk mencari kebenaran tentang dunia luar. Mereka menemukan bahwa kota mereka hanyalah bagian dari eksperimen genetik yang diawasi oleh lembaga rahasia. Saat Tris mulai mempercayai pemimpin lembaga tersebut, Four mencurigai adanya niat jahat di baliknya. Ketegangan meningkat ketika mereka harus menyelamatkan kota dari ancaman besar. Film ini menyoroti konflik moral and perjuangan melawan kontrol sosial dalam dunia distopia."
             },
             {
                 title: "Jumanji",
@@ -830,7 +813,7 @@
                 director: "Yoo Soo-min",
                 genre: "Action",
                 poster: "https://i.pinimg.com/736x/8e/0a/e4/8e0ae4c3d9cdba5c8367faf4904e2a56.jpg",
-                synopsis: "Weak Hero Class (2022) Yeon Si-eun, siswa dengan fisik lemah tapi cerdas, menghadapi kekerasan di sekolah. Ia melawan perundungan dengan strategi dan dukungan dari teman-temannya, Ahn Su-ho dan Oh Beom-seok. Bersama, mereka membentuk ikatan kuat sambil menghadapi budaya kekerasan yang merajalela. Drama ini mengangkat tema perundungan, ketahanan, dan persahabatan dengan aksi intens. Weak Hero Class 1 menampilkan karakter mendalam dan konflik yang realistis di lingkungan sekolah."
+                synopsis: "Weak Hero Class (2022) Yeon Si-eun, siswa dengan fisik lemah tapi cerdas, menghadapi kekerasan di sekolah. Ia melawan perundungan dengan strategi and dukungan dari teman-temannya, Ahn Su-ho dan Oh Beom-seok. Bersama, mereka membentuk ikatan kuat sambil menghadapi budaya kekerasan yang merajalela. Drama ini mengangkat tema perundungan, ketahanan, dan persahabatan dengan aksi intens. Weak Hero Class 1 menampilkan karakter mendalam dan konflik yang realistis di lingkungan sekolah."
             },
             {
                 title: "Sailor Moon",
