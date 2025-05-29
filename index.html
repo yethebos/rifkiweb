@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Review Film</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #001233;
+            color: #f4f4f4;
+            min-height: 100vh;
+        }
+        
+        nav {
+            background-color: #001845;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #f4f4f4;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav a:hover {
+            color: #fff;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #f4f4f4;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .hidden { display: none; }
+        
+        .section {
+            border: 1px solid #002855;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #002855;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .film-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-height: 700px;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #001845 #002855;
+        }
+        
+        .film-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .film-grid::-webkit-scrollbar-track {
+            background: #002855;
+            border-radius: 10px;
+        }
+        
+        .film-grid::-webkit-scrollbar-thumb {
+            background-color: #001845;
+            border-radius: 10px;
+        }
+        
+        .film-card {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #001845;
+            border-radius: 12px;
+            padding: 15px;
+            background-color: #001845;
+            color: #f4f4f4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .film-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+            border-color: #002855;
+        }
+        
+        .film-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .film-card:hover img {
+            transform: scale(1.02);
+        }
+        
+        .film-info {
+            flex-grow: 1;
+        }
+        
+        .film-info h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .film-info p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #c0d6df;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+            border: 1px solid #002855;
+            padding: 12px;
+            background: #001845;
+            color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+            resize: none;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #f4f4f4;
+        }
+        
+        .stars span {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 0 3px;
+            transition: transform 0.2s ease;
+        }
+        
+        .stars span:hover {
+            transform: scale(1.2);
+        }
+        
+        button {
+            background-color: #002855;
+            color: #f4f4f4;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: #001845;
+            transform: translateY(-2px);
+        }
+        
+        .resetbut {
+            margin-top: 15px;
+            background: #001233;
+            color: #f4f4f4;
+            border: 1px solid #002855;
+        }
+        
+        .resetbut:hover {
+            background: #002855;
+        }
+        
+        .film-card a {
+            color: #f4f4f4;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .film-card a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+        #commentSection p {
+            color: #f4f4f4;
+            background-color: #001845;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #002855;
+            transition: all 0.3s ease;
+        }
+        
+        #commentSection p:hover {
+            transform: translateX(5px);
+            border-left-color: #f4f4f4;
+        }
+        
+        .backbtn,
+        .actionbtn {
+            background-color: #001845 !important;
+            color: #fff !important;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-bottom: 15px;
+            margin-right: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .backbtn:hover,
+        .actionbtn:hover {
+            background-color: #002855 !important;
+            transform: translateY(-2px);
+        }
+        
+        .film-detail-container {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .film-poster-container {
+            flex: 0 0 300px;
+            position: relative;
+        }
+        
+        .film-poster-container img {
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .film-poster-container:hover img {
+            transform: scale(1.03);
+        }
+        
+        .film-content {
+            flex: 1;
+        }
+        
+        .synopsis-box {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #001845;
+            border-radius: 8px;
+            line-height: 1.7;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .synopsis-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #f4f4f4;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #002855;
+            padding-bottom: 8px;
+        }
+        
+        #searchBox {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #002855;
+            background-color: #001845;
+            color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        #searchBox:focus {
+            outline: none;
+            border-color: #f4f4f4;
+            box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
+        }
+        
+        #commentName {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #002855;
+            background: #001845;
+            color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        #commentName:focus {
+            outline: none;
+            border-color: #f4f4f4;
+            box-shadow: 0 0 0 2px rgba(244, 244, 244, 0.2);
+        }
+        
+        .form-container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            bottom: -8px;
+            left: 0;
+            background-color: #002855;
+            border-radius: 3px;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 20px 0 10px;
+            color: #fff;
+        }
+        
+        .rating-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .current-rating {
+            font-weight: 500;
+            color: #f4f4f4;
+            background-color: #001845;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .film-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .film-meta p {
+            background-color: #001845;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .film-meta p i {
+            font-size: 0.8rem;
+        }
+        
+        @media (max-width: 768px) {
+            .film-detail-container {
+                flex-direction: column;
+            }
+            
+            .film-poster-container {
+                flex: 1;
+                width: 100%;
+            }
+            
+            .film-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            nav {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            nav a {
+                margin: 5px 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* New styles for header and footer */
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-container {
+            width: 100%;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px 0;
+            border-top: 1px solid #002855;
+            background-color: #001845;
+            border-radius: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: #f4f4f4;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .owner-info {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #c0d6df;
+        }
+        
+        .copyright {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #8a9ba8;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6">
+    <nav class="fade-in">
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#liked"><i class="fas fa-heart"></i> Favorite</a>
+        <a href="#bookmarked"><i class="fas fa-bookmark"></i> Bookmark</a>
+    </nav>
+
+    <div id="home" class="section fade-in">
+        <div class="header-container">
+            <div class="title-container">
+                <p class="text-3xl font-family: arrial font-bold"><i class="fas fa-film mr-3 "></i>Letterhere</p class="text5xl">
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchBox" placeholder="Search for movies..." oninput="searchFilms()" />
+            </div>
+        </div>
+        <div class="film-grid" id="filmList"></div>
+    </div>
+
+    <div id="filmDetail" class="section hidden fade-in">
+        <button class="backbtn" onclick="goBackToHome()"><i class="fas fa-arrow-left"></i> Back to Movies</button>
+        <h1 id="filmTitle"></h1>
+        
+        <div class="film-meta">
+            <p id="filmYear"><i class="fas fa-calendar-alt"></i> <span id="yearText"></span></p>
+            <p id="filmDirector"><i class="fas fa-user"></i> <span id="directorText"></span></p>
+            <p id="filmGenre"><i class="fas fa-tag"></i> <span id="genreText"></span></p>
+        </div>
+        
+        <div class="film-detail-container">
+            <div class="film-poster-container">
+                <img id="filmPoster" src="" alt="Poster" width="300" class="fade-in" />
+            </div>
+            <div class="film-content">
+                <div class="synopsis-box fade-in">
+                    <div class="synopsis-title"><i class="fas fa-book-open mr-2"></i>Synopsis</div>
+                    <div id="filmSynopsis"></div>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <button class="actionbtn pulse" onclick="toggleLike()" id="likeBtn"><i class="fas fa-heart"></i> Favorite</button>
+                    <button class="actionbtn" onclick="toggleBookmark()" id="bookmarkBtn"><i class="fas fa-bookmark"></i> Bookmark</button>
+                </div>
+
+                <div class="rating-container">
+                    <h3>Your Rating:</h3>
+                    <div class="stars" id="starContainer"></div>
+                    <div class="current-rating" id="currentRating">
+                        <i class="fas fa-star"></i> <span id="ratingValue">0</span>/5
+                    </div>
+                </div>
+
+                <h3><i class="fas fa-comments mr-2"></i>Comments:</h3>
+                <form onsubmit="addComment(event)" class="form-container">
+                    <input type="text" id="commentName" placeholder="Your name" required />
+                    <textarea id="commentBox" placeholder="Write your review..." required></textarea><br />
+                    <button class="actionbtn" type="submit"><i class="fas fa-paper-plane"></i> Submit</button>
+                </form>
+
+                <div id="commentSection" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile" class="section hidden fade-in">
+        <h1><i class="fas fa-user mr-3"></i>User Profile</h1>
+        <p class="text-lg mb-4"><strong><i class="fas fa-signature mr-2"></i>Name:</strong> <span id="profileName" class="font-medium">Guest</span></p>
+        <p class="text-lg mb-2"><strong><i class="fas fa-star mr-2"></i>Your Reviews:</strong></p>
+        <ul id="userReviews" class="space-y-3"></ul>
+    </div>
+
+    <div id="liked" class="section hidden fade-in">
+        <h1><i class="fas fa-heart mr-3"></i>Favorite Movies</h1>
+        <div class="film-grid" id="likedList"></div>
+    </div>
+
+    <div id="bookmarked" class="section hidden fade-in">
+        <h1><i class="fas fa-bookmark mr-3"></i>Bookmarked Movies</h1>
+        <div class="film-grid" id="bookmarkList"></div>
+    </div>
+
+    <button class="resetbut" onclick="resetStorage()"><i class="fas fa-sync-alt"></i> Reset Data</button>
+
+    <div class="footer">
+        <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="owner-info">
+            <p> Yethebos Film Reviews </strong></p>
+        </div>
+        <div class="copyright">
+            <p>© 2025 All Rights Reserved</p>
+        </div>
+    </div>
+
+    <script>
+        const films = [
+            {
+                title: "Monster",
+                year: "2023",
+                director: "Hirokazu Kore-eda",
+                genre: "Drama",
+                poster: "https://i.pinimg.com/736x/fa/7f/02/fa7f02df0df57effe6d38ff3de3064e4.jpg",
+                synopsis: "Film Monster (2023) bercerita tentang Saori, ibu tunggal yang khawatir dengan perubahan perilaku putranya, Minato. Minato diduga menjadi korban kekerasan oleh wali kelasnya. Namun, dari sudut pandang lain, Minato ternyata pelaku bullying terhadap teman sekelasnya, Yori. Film ini mengangkat tema kekerasan di sekolah dan diskriminasi dengan tiga sudut pandang berbeda. Monster mengajak penonton memahami kompleksitas manusia dan prasangka sosial."
+            },
+            {
+                title: "Past Lives",
+                year: "2023",
+                director: "Celine Song",
+                genre: "Romance",
+                poster: "https://i.pinimg.com/736x/8c/99/a2/8c99a25d97082100d47c0811c02bf082.jpg",
+                synopsis: "Film Past Lives (2023) menceritakan Nora dan Hae Sung, sahabat masa kecil yang terpisah saat Nora pindah ke Kanada. Dua puluh tahun kemudian, mereka bertemu kembali di New York. Pertemuan ini membawa mereka mempertanyakan takdir dan pilihan hidup masing-masing. Film ini mengeksplorasi konsep hubungan lintas kehidupan dalam budaya Korea. Past Lives menyajikan kisah tentang cinta, penyesalan, dan harapan."
+            },
+            {
+                title: "The Greatest Showman",
+                year: "2017",
+                director: "Michael Gracey",
+                genre: "Musical",
+                poster: "https://i.pinimg.com/736x/2c/e0/a8/2ce0a808719b2acf70a1c8f8f538eb64.jpg",
+                synopsis: "Film The Greatest Showman (2017) mengisahkan perjalanan P.T. Barnum, seorang visioner yang mendirikan pertunjukan sirkus besar pertama. Ia mengumpulkan orang-orang unik dan berbakat untuk tampil dalam pertunjukan spektakuler. Barnum menghadapi berbagai tantangan sosial dan pribadi dalam usahanya meraih mimpi. Film ini penuh dengan lagu dan tarian yang energik serta pesan tentang keberanian dan penerimaan. The Greatest Showman mengajak penonton merayakan keunikan dan impian."
+            },
+            {
+                title: "Challengers",
+                year: "2024",
+                director: "Luca Guadagnino",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/54/37/b6/5437b6adfafad5d9b95bcb08a12de7d8.jpg",
+                synopsis: "Film Challengers (2024) bercerita tentang Tashi, mantan bintang tenis yang menjadi pelatih suaminya, Art. Art harus menghadapi mantan sahabat sekaligus mantan kekasih Tashi, Patrick, dalam turnamen tenis. Pertandingan ini memicu ketegangan emosional dan konflik lama di antara mereka. Film ini mengangkat tema cinta, pengkhianatan, dan ambisi. Challengers menampilkan kisah hubungan rumit dengan latar dunia olahraga."
+            },
+            {
+                title: "Wicked",
+                year: "2024",
+                director: "Jon M. Chu",
+                genre: "Musical",
+                poster: "https://i.pinimg.com/736x/42/37/ad/4237add79064f8a5b60006e6deffee12.jpg",
+                synopsis: "Wicked (2024) mengisahkan Elphaba, gadis hijau dengan kekuatan sihir, dan Glinda, penyihir populer di Universitas Shiz. Persahabatan mereka diuji oleh perbedaan prinsip dan ambisi. Elphaba memilih melawan ketidakadilan di negeri Oz, sementara Glinda mengejar ketenaran. Film ini mengungkap sisi gelap dunia Oz sebelum kisah The Wizard of Oz. Wicked menyoroti tema identitas, kekuasaan, dan pilihan hidup."
+            },
+            {
+                title: "Princess Diaries",
+                year: "2001",
+                director: "Garry Marshall",
+                genre: "Comedy",
+                poster: "https://i.pinimg.com/736x/16/a2/d7/16a2d7b6dfc3b2b42dc690036650bf0d.jpg",
+                synopsis: "The Princess Diaries (2001) mengisahkan Mia Thermopolis, remaja canggung di San Francisco yang hidupnya berubah drastis. Ia mengetahui bahwa dirinya adalah pewaris tahta kerajaan fiktif Genovia. Dengan bantuan neneknya, Ratu Clarisse, Mia belajar etika kerajaan dan cara menjadi putri. Ia harus memilih antara kehidupan lamanya atau menerima tanggung jawab sebagai pewaris tahta. Film ini menampilkan perjalanan Mia dalam menemukan jati diri dan keberanian."
+            },
+            {
+                title: "10 Things I Hate About You",
+                year: "1999",
+                director: " Gil Junger",
+                genre: "Romantic Comedy",
+                poster: "https://i.pinimg.com/736x/c5/e2/43/c5e243e9133bcbb7859141c54ff5345c.jpg",
+                synopsis: "10 Things I Hate About You (1999) adalah film remaja romantis yang terinspirasi dari karya Shakespeare The Taming of the Shrew. Ceritanya berpusat pada Kat Stratford, gadis pintar dan mandiri yang menolak pacaran. Adiknya, Bianca, hanya boleh berkencan jika Kat juga berkencan. Maka, Patrick Verona didekati untuk merayu Kat, tapi hubungan mereka berkembang jadi cinta sejati. Film ini menyuguhkan kisah cinta, pemberontakan, dan puisi dengan nuansa humor dan emosi."
+            },
+            {
+                title: "13 Reasons Why",
+                year: "2017",
+                director: "Tom McCarthy",
+                genre: "Drama",
+                poster: "https://i.pinimg.com/736x/12/3e/32/123e321154f5eaebd62a313ed44e5515.jpg",
+                synopsis: "13 Reasons Why (2017) menceritakan Hannah Baker, remaja yang bunuh diri dan meninggalkan 13 rekaman kaset. Setiap kaset berisi alasan dan orang-orang yang terlibat dalam penderitaannya. Clay Jensen, teman sekelasnya, mendengarkan kaset dan mengungkap rahasia kelam di sekolahnya. Serial ini membahas isu bullying, pelecehan, dan kesehatan mental remaja secara mendalam."
+            },
+            {
+                title: "13 Going On 30",
+                year: "2004",
+                director: " Gary Winick",
+                genre: "Comedy",
+                poster: "https://i.pinimg.com/736x/fd/16/a4/fd16a472b5876d562abde35c12d6c3de.jpg",
+                synopsis: "13 Going On 30 (2004) bercerita tentang Jenna Rink, seorang gadis berusia 13 tahun yang berharap menjadi dewasa agar diterima teman-temannya. Setelah mengalami kejadian ajaib, ia tiba-tiba terbangun sebagai wanita berusia 30 tahun dengan kehidupan yang sempurna. Namun, Jenna menyadari bahwa menjadi dewasa tidak semudah yang ia bayangkan dan harus memperbaiki kesalahan masa lalunya. Film ini menggabungkan komedi, romansa, and kisah pencarian jati diri. Cerita ini mengajarkan pentingnya menghargai masa muda dan memilih jalan hidup dengan bijak."
+            },
+            {
+                title: "Mean Girls",
+                year: "2004",
+                director: "Mark Waters",
+                genre: "Comedy",
+                poster: "https://i.pinimg.com/736x/c0/64/fc/c064fc4cc7e19be7e7d771a0fc9520a5.jpg",
+                synopsis: "Mean Girls (2004) Cady Heron, remaja yang baru pindah dari Afrika ke Amerika, mencoba menyesuaikan diri di sekolah barunya. Ia bergabung dengan kelompok populer The Plastics yang dipimpin oleh Regina George. Cady terjebak dalam drama sosial dan persaingan yang penuh manipulasi. Dengan bantuan teman-teman baru, ia belajar menghadapi tekanan dan menjadi diri sendiri. Film ini mengangkat tema persahabatan, bullying, dan dinamika sosial remaja dengan humor tajam."
+            },
+            {
+                title: "Barbie",
+                year: "2023",
+                director: "Greta Gerwig",
+                genre: "Musical",
+                poster: "https://i.pinimg.com/736x/4f/23/94/4f239420d713af11e2d257087af3e8ea.jpg",
+                synopsis: "Barbie (2023) Barbie menjalani petualangan di dunia nyata setelah meninggalkan Barbie Land yang sempurna. Ia menghadapi tantangan dan belajar tentang identidad, kebebasan, serta arti menjadi diri sendiri. Dalam perjalanan, Barbie bertemu berbagai karakter yang membantunya menemukan tujuan hidup. Film ini menggabungkan humor, fantasi, dan pesan pemberdayaan perempuan. Barbie (2023) menyajikan kisah yang menginspirasi dengan visual warna-warni dan cerita menyentuh."
+            },
+            {
+                title: "Clueless",
+                year: "1995",
+                director: "Amy Heckerling",
+                genre: "Comedy",
+                poster: "https://i.pinimg.com/736x/95/cc/6f/95cc6f7cf23b8cbacc2d093d925882ec.jpg",
+                synopsis: "Clueless (1995) Cher, remaja kaya dan populer di Beverly Hills, mencoba menjadi makcomblang bagi teman-temannya. Namun, usahanya sering berujung kekacauan dan pelajaran berharga tentang cinta dan persahabatan. Saat mengenal lebih dekat seorang guru baru, Cher mulai menyadari nilai sebenarnya dari kejujuran dan empati. Film ini penuh dengan humor dan gaya khas tahun 90-an. Clueless (1995) menjadi ikon budaya pop dengan pesan ringan tapi bermakna."
+            },
+            {
+                title: "Interstellar",
+                year: "2014",
+                director: "Christopher Nolan",
+                genre: "Sci-Fi",
+                poster: "https://i.pinimg.com/736x/0b/34/ce/0b34ce2145b475247577a5d438a199b0.jpg",
+                synopsis: "Interstellar (2014) Cooper, mantan pilot NASA, memimpin misi luar angkasa untuk mencari planet baru demi menyelamatkan umat manusia. Dalam perjalanan melintasi lubang cacing, ia menghadapi waktu yang melambat dan dilema pribadi. Sementara itu, di Bumi, putrinya berusaha memahami pengorbanan ayahnya. Film ini menggabungkan sains, emosi, dan visual spektakuler. Interstellar (2014) mengeksplorasi cinta, harapan, dan keberanian di batas alam semesta."
+            },
+            {
+                title: "Parasite",
+                year: "2020",
+                director: "Bong Joon-ho",
+                genre: "Thriller",
+                poster: "https://i.pinimg.com/736x/bc/e3/c2/bce3c2cbd502d88d137200ee7d928f09.jpg",
+                synopsis: "Parasite (2019) Keluarga Kim yang hidup dalam kemiskinan secara licik menyusup ke kehidupan keluarga kaya Park sebagai pekerja rumah tangga. Perlahan, rahasia gelap dan ketegangan sosial mulai terungkap, memicu konflik yang tak terduga. Film ini mengkritik ketimpangan kelas dengan nuansa thriller dan satir gelap. Parasite (2019) memenangkan berbagai penghargaan internasional dan mendapat pujian kritis. Cerita ini menggambarkan perjuangan dan dampak jurang sosial secara tajam dan mendalam."
+            },
+            {
+                title: "Wednesday",
+                year: "2022",
+                director: "Tim Burton",
+                genre: "Horror",
+                poster: "https://i.pinimg.com/736x/47/1b/cd/471bcd0d2ebb45c3c5a0ba03e59b07e0.jpg",
+                synopsis: "Wednesday (2022) Wednesday Addams, remaja dengan kemampuan supranatural, bersekolah di Nevermore Academy. Ia mencoba mengungkap misteri pembunuhan yang terjadi di sekolah sambil menghadapi kehidupan sosial yang rumit. Dengan kecerdasan dan sikap dinginnya, Wednesday menghadapi berbagai tantangan dan musuh. Serial ini memadukan genre misteri, horor, dan komedi gelap. Wednesday (2022) menampilkan kisah pertumbuhan dan pemberdayaan karakter unik dan ikonik."
+            },
+            {
+                title: "The Devil Wears Prada",
+                year: "2006",
+                director: "David Frankel",
+                genre: "Drama",
+                poster: "https://i.pinimg.com/736x/d6/30/69/d6306943d61261cf50e93fee7aef4b6c.jpg",
+                synopsis: "The Devil Wears Prada (2006) Andy Sachs, seorang jurnalis muda, mendapat pekerjaan sebagai asisten editor majalah mode terkenal. Ia harus menghadapi tuntutan tinggi dan sikap kasar bosnya, Miranda Priestly. Di tengah tekanan pekerjaan, Andy mulai kehilangan jati diri dan hubungan pribadi. Film ini mengangkat konflik antara ambisi karier dan kehidupan pribadi dengan sentuhan komedi. The Devil Wears Prada (2006) menjadi kisah inspiratif tentang kekuatan, kompromi, and pencarian identitas."
+            },
+            {
+                title: "12 Angry Men",
+                year: "1957",
+                director: "Sidney Lumet",
+                genre: "Crime",
+                poster: "https://i.pinimg.com/736x/12/94/c3/1294c3cfa1e9f52a67be7403739e9c93.jpg",
+                synopsis: "12 Angry Men (1957) Dua belas juri berkumpul untuk memutuskan nasib seorang remaja yang dituduh membunuh ayahnya. Awalnya, hanya satu juri yang meragukan kesalahan terdakwa, sementara yang lain yakin bersalah. Seiring berjalannya diskusi yang intens, prasangka, emosi, dan logika masing-masing juri mulai terungkap. Ketegangan meningkat dalam satu ruangan panas saat mereka mempertimbangkan bukti dan kebenaran. Film ini menggambarkan pentingnya keadilan, nalar kritis, dan integritas dalam sistem hukum."
+            },
+            {
+                title: "The Dark Knight",
+                year: "2008",
+                director: "Christopher Nolan",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/ea/a2/6e/eaa26e2c3bfa234c3cdd3c4d9fabad35.jpg",
+                synopsis: "The Dark Knight (2008) Batman menghadapi ancaman terbesar ketika Joker muncul sebagai penjahat kacau yang ingin menggulingkan tatanan kota Gotham. Dengan strategi brutal dan permainan psikologis, Joker memaksa kota ke ambang kekacauan. Batman, bersama Letnan Gordon dan Jaksa Harvey Dent, berjuang menegakkan keadilan tanpa mengorbankan prinsip moralnya. Namun, pengorbanan dan konsekuensi pribadi menjadi tak terhindarkan. Film ini mengeksplorasi batas antara pahlawan dan penjahat dalam kisah gelap dan mendalam."
+            },
+            {
+                title: "The Equalizer",
+                year: "2014",
+                director: "Antoine Fuqua",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/00/38/69/0038692eea033e41d0aca3b8d20e2cde.jpg",
+                synopsis: "The Equalizer (2014) Robert McCall, mantan agen rahasia yang mencoba hidup tenang, kembali beraksi saat melihat ketidakadilan. Ia membantu seorang gadis muda yang disikga oleh geng Rusia kejam, memicu konflik mematikan. Dengan keahlian mematikan dan ketenangan dingin, McCall memburu para penjahat satu per satu. Aksinya menunjukkan bahwa keadilan bisa datang dari bayang-bayang. Film ini menampilkan aksi intens dengan tema balas dendam dan keadilan pribadi."
+            },
+            {
+                title: "Oppenheimer",
+                year: "2023",
+                director: "Christopher Nolan",
+                genre: "Drama",
+                poster: "https://i.pinimg.com/736x/ce/21/d8/ce21d8388d5743864725b3c50a2d448f.jpg",
+                synopsis: "Oppenheimer (2023) J. Robert Oppenheimer memimpin Proyek Manhattan untuk menciptakan bom atom selama Perang Dunia II. Keberhasilannya mengubah sejarah, namun membawa dilema moral dan konflik batin yang mendalam. Film ini mengeksplorasi ketegangan antara sains, kekuasaan, dan tanggung jawab manusia. Dengan visual yang kuat and narasi kompleks, kisah ini menggambarkan beban besar di balik penemuan senjata pemusnah massal. Oppenheimer menyajikan potret intens tentang ambisi dan konsekuensi bersejarah."
+            },
+            {
+                title: "Harry Potter",
+                year: "2001",
+                director: "Chris Colombus",
+                genre: "Fantasy",
+                poster: "https://i.pinimg.com/736x/36/26/dc/3626dc0c89bf916057a3662f7fbcedc2.jpg",
+                synopsis: "Harry Potter (2001) Harry Potter, anak yatim piatu, menemukan bahwa dia adalah penyihir saat menerima undangan ke Sekolah Sihir Hogwarts. Di sana, ia mulai belajar sihir dan menghadapi misteri seputar masa lalunya. Bersama teman-temannya, Harry menghadapi ancaman dari penyihir gelap Lord Voldemort. Film ini menggabungkan petualangan, persahabatan, dan sihir dalam dunia fantasi yang memikat. Harry Potter membuka babak baru dalam genre fantasi dengan cerita yang penuh keajaiban dan keberanian."
+            },
+            {
+                title: "Divergent",
+                year: "2014",
+                director: "Neil Burger",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/f8/6b/eb/f86beba5fd8a9dbda930d6a0ca8ad0d8.jpg",
+                synopsis: "Divergent (2014) Tris hidup di dunia yang terbagi dalam faksi berdasarkan kepribadian. Saat tes menentukan faksinya, Tris menunjukkan hasil yang unik—divergen—yang membahayakan sistem yang ada. Ia harus menyembunyikan identitasnya sambil menghadapi ancaman dari faksi-faksi yang ingin mengendalikan masyarakat. Film ini menggabungkan aksi, drama, dan tema pencarian jati diri dalam dunia distopia yang penuh konflik. Divergent mengangkat keberanian melawan penindasan dan pentingnya memilih jalan sendiri."
+            },
+            {
+                title: "Insurgent",
+                year: "2015",
+                director: "Robert Schwentke",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/13/b5/46/13b546f6139f6a5f5dccf05e96285af5.jpg",
+                synopsis: "Insurgent (2015) Tris dan sekutunya melanjutkan perjuangan melawan sistem faksi yang menindas di dunia distopia mereka. Setelah pengkhianatan dan kekacauan, mereka mencari kunci untuk mengungkap rahasia masa lalu yang dapat mengubah masa depan. Ketegangan meningkat dengan munculnya ancaman baru dan konflik internal yang menguji loyalitas. Film ini penuh aksi dan drama, menggambarkan keberanian menghadapi ketidakpastian. Insurgent menyoroti pentingnya pilihan dan pengorbanan dalam perjalanan menemukan jati diri."
+            },
+            {
+                title: "Allegiant",
+                year: "2016",
+                director: "Robert Schwentke",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/42/b6/86/42b6860b32bd3936f3439af5bb87df87.jpg",
+                synopsis: "Allegiant (2016) Tris dan Four melintasi tembok kota Chicago untuk mencari kebenaran tentang dunia luar. Mereka menemukan bahwa kota mereka hanyalah bagian dari eksperimen genetik yang diawasi oleh lembaga rahasia. Saat Tris mulai mempercayai pemimpin lembaga tersebut, Four mencurigai adanya niat jahat di baliknya. Ketegangan meningkat ketika mereka harus menyelamatkan kota dari ancaman besar. Film ini menyoroti konflik moral dan perjuangan melawan kontrol sosial dalam dunia distopia."
+            },
+            {
+                title: "Jumanji",
+                year: "2017",
+                director: "jake Kasdan",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/19/48/35/1948352f161a8d474bca3174231878e9.jpg",
+                synopsis: "Jumanji (2017) Empat remaja menemukan sebuah permainan video ajaib yang membawa mereka masuk ke dunia hutan liar Jumanji. Mereka berubah menjadi karakter dalam game dengan kekuatan unik yang harus digunakan untuk menyelesaikan tantangan. Bersama-sama, mereka berjuang mengalahkan bahaya dan mencari jalan keluar dari permainan. Film ini penuh aksi, komedi, dan petualangan seru yang menguji keberanian and kerja sama. Jumanji (2017) menyajikan versi modern dari cerita klasik dengan sentuhan teknologi dan humor."
+            },
+            {
+                title: "Sweet Home 2",
+                year: "2023",
+                director: "Lee Eung-bok",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/fb/62/e3/fb62e34ed5d5492289b8167f938cf981.jpg",
+                synopsis: "Sweet Home 2 (2023) Cha Hyun-su dan para penyintas Green Home berjuang di dunia luar yang dikuasai monster. Mereka menemukan perlindungan di stadion bisbol, namun ancaman baru muncul dari dalam dan luar kelompok. Cha Hyun-su menghadapi dilema besar antara mempertahankan kemanusiaannya atau berubah menjadi monster. Sementara itu, Dr. Lim melakukan eksperimen untuk mengembangkan vaksin dari penyintas yang terinfeksi. Serial ini penuh ketegangan dan konflik, menguji batas antara manusia dan monster dalam dunia pasca-apokaliptik."
+            },
+            {
+                title: "Squid Game 2",
+                year: "2024",
+                director: "Hwang Dong-Hyuk",
+                genre: "Drama",
+                poster: "https://i.pinimg.com/736x/91/6b/37/916b376a61e8f11293c115bc0361a7d2.jpg",
+                synopsis: "Squid Game 2 (2024) Seong Gi-hun kembali ke permainan mematikan setelah membatalkan rencana pergi ke Amerika. Ia bertekad menghentikan Squid Game dan menghadapi tantangan baru serta pemain yang lebih berbahaya. Musim kedua menyajikan permainan yang lebih brutal dan kompleks dengan kritik sosial yang tajam. Gi-hun berjuang melawan sisi gelap manusia dan sistem yang kejam. Film ini menampilkan aktor lama dan baru dalam konflik yang semakin intens."
+            },
+            {
+                title: "Weak Hero Class",
+                year: "2022",
+                director: "Yoo Soo-min",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/8e/0a/e4/8e0ae4c3d9cdba5c8367faf4904e2a56.jpg",
+                synopsis: "Weak Hero Class (2022) Yeon Si-eun, siswa dengan fisik lemah tapi cerdas, menghadapi kekerasan di sekolah. Ia melawan perundungan dengan strategi dan dukungan dari teman-temannya, Ahn Su-ho dan Oh Beom-seok. Bersama, mereka membentuk ikatan kuat sambil menghadapi budaya kekerasan yang merajalela. Drama ini mengangkat tema perundungan, ketahanan, dan persahabatan dengan aksi intens. Weak Hero Class 1 menampilkan karakter mendalam dan konflik yang realistis di lingkungan sekolah."
+            },
+            {
+                title: "Sailor Moon",
+                year: "1992-1997",
+                director: "Kunihiko Ikuhara",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/31/9d/86/319d86712c65c8974b04657c4153cc5f.jpg",
+                synopsis: "Sailor Moon (1992-1997) Usagi Tsukino, gadis remaja biasa, menemukan dirinya sebagai Sailor Moon, pelindung bumi dari kekuatan jahat. Bersama Sailor Guardians lainnya, ia berjuang melindungi dunia sambil menjalani kehidupan sehari-hari. Serial ini memadukan aksi, fantasi, và kisah persahabatan yang kuat. Tema cinta, keberanian, dan pengorbanan mewarnai petualangan mereka. Sailor Moon menjadi ikon budaya pop dan mempengaruhi genre anime magical girl secara luas."
+            },
+            {
+                title: "The Powerpuff Girls",
+                year: "1998-2005",
+                director: "Craig McCrac",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/2d/dc/b6/2ddcb66d7f3dbbebf2993afded0c3ab2.jpg",
+                synopsis: "The Powerpuff Girls (1998-2005) Tiga gadis super, Blossom, Bubbles, dan Buttercup, diciptakan oleh Profesor Utonium dengan campuran gula, spice, dan semangat tajam.Mereka melindungi Kota Townsville dari berbagai penjahat dan ancaman unik. Serial ini menggabungkan aksi, humor, dan nilai persahabatan. Setiap episode menghadirkan petualangan seru sekaligus pesan moral yang ringan. The Powerpuff Girls menjadi kartun ikonik dengan pengaruh besar di dunia animasi anak-anak."
+            },
+            {
+                title: "Winx Club",
+                year: "2004",
+                director: "Iginio Straffi",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/2b/60/65/2b60652656a6266c1ebd219d1a7aa4c0.jpg",
+                synopsis: "Winx Club (2004) Bloom, gadis biasa, menemukan bahwa dia adalah peri dengan kekuatan luar biasa. Ia bergabung dengan Winx Club di Sekolah Alfea untuk mempelajari sihir dan menghadapi ancaman gelap. Bersama teman-temannya, Bloom menjalani petualangan penuh sihir, persahabatan, và pertarungan melawan kejahatan. Serial ini menggabungkan fantasi và drama remaja dalam dunia peri yang memikat. Winx Club menjadi salah satu serial animasi populer dengan tema empowerment và persahabatan."
+            },
+            {
+                title: "Strawberry Shortcake's Berry Bitty Adventures",
+                year: "2010-2015",
+                director: "Bob Boyle",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/0c/00/4a/0c004a1d2dc91508591849d1f1fa55d9.jpg",
+                synopsis: "Strawberry Shortcake's Berry Bitty Adventures (2010-2015) Strawberry Shortcake và teman-temannya tinggal di Berry Bitty City, sebuah kota kecil penuh warna dan keceriaan. Mereka menjalani petualangan sehari-hari yang mengajarkan nilai persahabatan, kerja sama, dan kebaikan hati. Setiap episode penuh dengan momen manis dan pelajaran positif untuk anak-anak. Serial ini menggabungkan animasi ceria dengan cerita yang mudah diikuti. Strawberry Shortcake's Berry Bitty Adventures menjadi favorit keluarga dengan tema hangat dan menyenangkan."
+            },
+            {
+                title: "Bratz",
+                year: "200-2008",
+                director: "Mucci Fassett",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/57/d1/bc/57d1bcb3dfc424f4c806a77d3bac0ebf.jpg",
+                synopsis: "Bratz (2005-2008) Kartun bercerita tentang four sahabat remaja—Cloe, Yasmin, Sasha, và Jade—yang tinggal di Fashion Avenue. Mereka menjalani kehidupan sekolah and sosial dengan penuh gaya and kepribadian unik. Serial ini mengangkat tema persahabatan, kepercayaan diri, dan keberagaman. Mereka sering menghadapi tantangan remaja dan petualangan seru bersama. Intinya, Bratz mengajarkan pentingnya menjadi diri sendiri dan saling mendukung."
+            },
+            {
+                title: "Monster High",
+                year: "2010",
+                director: "Audu Paden",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/c6/91/a0/c691a0facaf35944f6c7e9a1f3e2276f.jpg",
+                synopsis: "Monster High (2010) Mengikuti kehidupan anak-anak dari monster legendaris seperti Dracula, Frankenstein, dan Mummy. Mereka bersekolah di Monster High, tempat unik di mana monster belajar hidup berdampingan dengan damai. Tokoh utama seperti Draculaura, Frankie Stein, dan Clawdeen Wolf belajar menerima diri mereka sendiri. Serial ini menekankan nilai persahabatan, keberagaman, dan percaya diri. Meski berbeda, mereka membuktikan bahwa setiap monster punya tempat untuk bersinar."
+            },
+            {
+                title: "W.I.T.C.H",
+                year: "2004-2006",
+                director: "Marc Gordon-Bates ",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/24/3d/25/243d25a30e6716f1c8898da0369ff3b4.jpg",
+                synopsis: "W.I.T.C.H (2004-2006) Lima remaja gadis dipilih menjadi penjaga dimensi magis bernama Kandrakar. Mereka memiliki kekuatan elemen: air, api, tanah, udara, và energi. Misi mereka adalah menjaga keseimbangan antara dunia manusia dan dimensi lain yang penuh ancaman. Dipimpin oleh Will, pemegang Hati Kandrakar, mereka menghadapi musuh dari dunia gelap Metamoor. Persahabatan, keberanian, dan kekuatan sihir menjadi senjata utama dalam petualangan mereka. "
+            },
+            {
+                title: "LoliRock",
+                year: "2014-2017",
+                director: "Jean-Louis Vandestoc",
+                genre: "Animation",
+                poster: "https://i.pinimg.com/736x/5c/e5/fc/5ce5fc70faa214a9b3ee4b0ba50fce5d.jpg",
+                synopsis: "LoliRock (2014-2017) Iris, seorang remaja dengan suara indah, menemukan bahwa ia memiliki kekuatan magis dan berasal dari dunia lain bernama Ephedia. Ia bergabung dengan Talia dan Auriana, dua putri dari dunia yang sama, untuk membentuk grup musik LoliRock. Di balik penampilan mereka sebagai band, mereka bertaruh melawan kekuatan jahat yang dipimpin oleh Gramorr. Misi mereka adalah mengumpulkan Permata Kerajaan dan menyelamatkan Ephedia. Dengan kekuatan sihir and persahabatan, mereka menjalani petualangan penuh aksi and musik."
+            },
+            {
+                title: "Shutter Island",
+                year: "2010",
+                director: "Martin Scorsese",
+                genre: "Thriller",
+                poster: "https://i.pinimg.com/736x/be/42/79/be42798ae9f2053ce10dd4e4a33d091f.jpg",
+                synopsis: "Shutter Island (2010) Shutter Island mengikuti U.S. Marshal Teddy Daniels yang dikirim ke rumah sakit jiwa di sebuah pulau terpencil untuk menyelidiki hilangnya seorang pasien bernama Rachel Solando. Bersama rekannya Chuck, ia mulai menemukan kejanggalan di rumah sakit tersebut. Semakin dalam penyelidikan, Teddy terganggu oleh mimpi, kenangan masa lalu, và paranoia. Ia mulai mempertanyakan siapa yang bisa dipercaya dan apa yang sebenarnya terjadi di pulau itu. Pada akhirnya, kenyataan yang ia temukan jauh lebih mengganggu dari yang ia bayangkan."
+            },
+            {
+                title: "Good Will Hunting",
+                year: "1997",
+                director: "Gus Van Sant",
+                genre: "Romance",
+                poster: "https://i.pinimg.com/736x/74/20/87/742087f3449774a3880621a8c8f10187.jpg",
+                synopsis: "Good Will Hunting (1997) Will Hunting adalah pemuda jenius matematika yang bekerja sebagai petugas kebersihan di MIT. Meski berbakat, ia menghadapi trauma masa lalu dan sulit mempercayai orang lain. Dengan bantuan terapisnya, Sean, Will mulai menghadapi masalah emosionalnya. Mereka membangun hubungan yang membantu Will menemukan jati diri dan masa depan. Film ini mengangkat tema persahabatan, cinta, dan pengembangan diri."
+            },
+            {
+                title: "The Shawshank Redemption",
+                year: "1994",
+                director: "Frank Darabont",
+                genre: "Criminal",
+                poster: "https://i.pinimg.com/736x/08/6f/fe/086ffeccab22baa2b4d49ab8787f9b90.jpg",
+                synopsis: "The Shawshank Redemption (1994) Andy Dufresne, seorang bankir yang dipenjara seumur hidup atas tuduhan membunuh istrinya dan kekasihnya meskipun dia bersikeras tidak bersalah. Di penjara Shawshank, Andy menjalin persahabatan dengan narapidana lain bernama Red. Dengan kecerdasan dan ketekunannya, Andy membawa perubahan positif di penjara sekaligus merencanakan pelarian yang luar biasa. Film ini bercerita tentang harapan, kebebasan, dan persahabatan."
+            },
+            {
+                title: "Catch Me If You Can",
+                year: "2002",
+                director: "Steven Spielberg",
+                genre: "Criminal",
+                poster: "https://i.pinimg.com/736x/28/f7/cf/28f7cf508bcd030791397f1c65a374fd.jpg",
+                synopsis: "Catch Me If You Can (2002) Frank Abagnale Jr., seorang penipu ulung yang berhasil melakukan berbagai penipuan besar saat masih remaja. Dengan berbagai identitas palsu seperti pilot dan dokter, Frank selalu berhasil mengelabui pihak berwajib. Agen FBI Carl Hanratty bertekad menangkap Frank dan memulai pengejaran yang penuh liku. Di balik aksi penipuannya, Frank juga berjuang menghadapi kesepian dan masalah keluarganya. Film ini menggabungkan elemen drama, komedi, và ketegangan."
+            },
+            {
+                title: "John Wick",
+                year: "2014",
+                director: "Chad Stahelski",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/25/82/b4/2582b4a9b2174193380ad366886ee5a3.jpg",
+                synopsis: "John Wick (2014) John Wick adalah mantan pembunuh bayaran legendaris yang pensiun setelah menikah. Ketika istrinya meninggal, dia menerima hadiah terakhir berupa seekor anjing kecil yang menjadi teman terakhirnya. Namun, ketika sekelompok kriminal merampas anjing itu dan mencuri mobilnya, John kembali ke dunia gelap pembunuhan untuk membalas dendam. Film ini penuh aksi intens và pertarungan sengit."
+            },
+            {
+                title: "Speed",
+                year: "1994",
+                director: "Jan de Bont",
+                genre: "Action",
+                poster: "https://i.pinimg.com/736x/39/71/ed/3971ed5dfd48230e197b0f5e8a660a4c.jpg",
+                synopsis: "Speed (1994) Seorang polisi muda, Jack Traven (Keanu Reeves), harus menyelamatkan penumpang bus yang dipasangi bom oleh teroris. Bom tersebut akan meledak jika bus melaju di bawah kecepatan 50 mil per jam. Bersama penumpang wanita bernama Annie (Sandra Bullock), Jack mencoba menjaga bus tetap melaju sambil mencari cara untuk menjinakkan situasi. Ketegangan meningkat di jalanan Los Angeles saat waktu terus berjalan. Film ini penuh aksi menegangkan và kejar-kejaran ikonik."
+            },
+            {
+                title: "The Godfather",
+                year: "1972",
+                director: "Francis Ford Coppola",
+                genre: "Criminal",
+                poster: "https://i.pinimg.com/736x/c1/70/2e/c1702eb97daf347274c70c9d37e0cc29.jpg",
+                synopsis: "The Godfather (1972) The Godfather mengikuti keluarga mafia Corleone yang dipimpin oleh Don Vito Corleone (Marlon Brando). Saat kekuasaan sang Don mulai melemah, putranya Michael Corleone (Al Pacino) terpaksa terlibat dalam dunia kejahatan keluarga. Awalnya menolak, Michael perlahan berubah menjadi pewaris kejam takhta mafia. Film ini menggambarkan kehormatan, pengkhianatan, và transisi kekuasaan dalam dunia kriminal. Klasik sepanjang masa yang memadukan kekerasan dan nilai keluarga."
+            },
+            {
+                title: "Alice in Borderland",
+                year: "2020",
+                director: "Shinsuke Sato",
+                genre: "Thriller",
+                poster: "https://i.pinimg.com/736x/fb/96/fe/fb96fe681792c162eedeaecfe55dd05d.jpg",
+                synopsis: "Alice in Borderland (2020) Arisu, seorang pemuda pengangguran pecinta video game, tiba-tiba terjebak di versi paralel Tokyo bersama dua temannya. Kota itu kosong, dan mereka dipaksa mengikuti permainan mematikan untuk bertahan hidup. Setiap permainan ditentukan oleh kartu remi, yang mewakili tingkat kesulitan dan jenis tantangan. Arisu bertemu dengan Usagi, và bersama-sama mereka mencoba memecahkan misteri di balik dunia ini. Serial ini penuh ketegangan, teka-teki, và pertarungan psikologis."
+            }
+        ];
+
+        films.forEach(f => {
+            f.likes = false;
+            f.bookmarked = false;
+            f.userRating = 0;
+            f.comments = [];
+        });
+
+        let currentUser = { name: "Guest", reviews: [] };
+        let currentFilm = null;
+        let allFilmCards = [];
+
+        function saveFilmsToStorage() {
+            localStorage.setItem("filmsData", JSON.stringify(films));
+        }
+
+        function loadFilmsFromStorage() {
+            const data = localStorage.getItem("filmsData");
+            if (data) {
+                const parsed = JSON.parse(data);
+                parsed.forEach((film, i) => {
+                    if (films[i]) {
+                        films[i].likes = film.likes || false;
+                        films[i].bookmarked = film.bookmarked || false;
+                        films[i].userRating = film.userRating || 0;
+                        films[i].comments = film.comments || [];
+                    }
+                });
+            }
+        }
+
+        function resetStorage() {
+            localStorage.removeItem("filmsData");
+            location.reload();
+        }
+
+        function showSection(id) {
+            ["home", "filmDetail", "profile", "liked", "bookmarked"].forEach(sec => {
+                document.getElementById(sec).classList.add("hidden");
+            });
+            document.getElementById(id).classList.remove("hidden");
+            if (id === "profile") updateProfile();
+            if (id === "home") {
+                document.getElementById("searchBox").value = "";
+                searchFilms();
+            }
+            if (id === "liked") renderLiked();
+            if (id === "bookmarked") renderBookmarks();
+        }
+
+        function goBackToHome() {
+            location.hash = "home";
+        }
+
+        function loadFilms() {
+            const container = document.getElementById("filmList");
+            container.innerHTML = "";
+            allFilmCards = [];
+            films.forEach((film, index) => {
+                const card = document.createElement("div");
+                card.className = "film-card";
+                card.innerHTML = `
+                    <a href="#film-${index}"><img src="${film.poster}" alt="Poster" /></a>
+                    <div class="film-info">
+                        <h3><a href="#film-${index}">${film.title}</a></h3>
+                        <p><strong><i class="fas fa-calendar-alt mr-1"></i>Year:</strong> ${film.year}</p>
+                        <p><strong><i class="fas fa-user mr-1"></i>Director:</strong> ${film.director}</p>
+                        <p><strong><i class="fas fa-tag mr-1"></i>Genre:</strong> ${film.genre}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+                allFilmCards.push({ element: card, title: film.title.toLowerCase() });
+            });
+        }
+
+        function searchFilms() {
+            const keyword = document.getElementById("searchBox").value.toLowerCase();
+            allFilmCards.forEach(card => {
+                card.element.style.display = card.title.includes(keyword) ? "flex" : "none";
+            });
+        }
+
+        function viewFilm(index) {
+            currentFilm = films[index];
+            document.getElementById("filmTitle").textContent = currentFilm.title;
+            document.getElementById("yearText").textContent = currentFilm.year;
+            document.getElementById("directorText").textContent = currentFilm.director;
+            document.getElementById("genreText").textContent = currentFilm.genre;
+            document.getElementById("filmPoster").src = currentFilm.poster;
+            document.getElementById("filmSynopsis").textContent = currentFilm.synopsis;
+            document.getElementById("ratingValue").textContent = currentFilm.userRating || 0;
+            
+            const commentSection = document.getElementById("commentSection");
+            commentSection.innerHTML = "";
+            currentFilm.comments.forEach(comment => {
+                const p = document.createElement("p");
+                p.textContent = comment;
+                commentSection.appendChild(p);
+            });
+            
+            document.getElementById("likeBtn").innerHTML = currentFilm.likes 
+                ? '<i class="fas fa-heart"></i> Favorite' 
+                : '<i class="far fa-heart"></i> Favorite';
+                
+            document.getElementById("bookmarkBtn").innerHTML = currentFilm.bookmarked 
+                ? '<i class="fas fa-bookmark"></i> Bookmarked' 
+                : '<i class="far fa-bookmark"></i> Bookmark';
+                
+            renderStars(currentFilm.userRating || 0);
+            showSection("filmDetail");
+        }
+
+        function toggleLike() {
+            currentFilm.likes = !currentFilm.likes;
+            document.getElementById("likeBtn").innerHTML = currentFilm.likes 
+                ? '<i class="fas fa-heart"></i> Favorite' 
+                : '<i class="far fa-heart"></i> Favorite';
+            saveFilmsToStorage();
+        }
+
+        function toggleBookmark() {
+            currentFilm.bookmarked = !currentFilm.bookmarked;
+            document.getElementById("bookmarkBtn").innerHTML = currentFilm.bookmarked 
+                ? '<i class="fas fa-bookmark"></i> Bookmarked' 
+                : '<i class="far fa-bookmark"></i> Bookmark';
+            saveFilmsToStorage();
+        }
+
+        function renderStars(selected) {
+            const container = document.getElementById("starContainer");
+            container.innerHTML = "";
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement("span");
+                star.innerHTML = i <= selected ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+                star.onclick = () => {
+                    currentFilm.userRating = i;
+                    document.getElementById("ratingValue").textContent = i;
+                    renderStars(i);
+                    if (!currentUser.reviews.some(r => r.includes(`${currentFilm.title}`) && r.includes('Rating'))) {
+                        currentUser.reviews.push(`Rating ${i} stars for "${currentFilm.title}"`);
+                    }
+                    updateProfile();
+                    saveFilmsToStorage();
+                };
+                container.appendChild(star);
+            }
+        }
+
+        function addComment(event) {
+            event.preventDefault();
+            const name = document.getElementById("commentName").value.trim();
+            const text = document.getElementById("commentBox").value.trim();
+            if (!name || !text) return alert("Name and comment cannot be empty.");
+            
+            const rating = currentFilm.userRating || 0;
+            const commentText = `${name} (${rating}⭐): ${text}`;
+            currentFilm.comments.push(commentText);
+
+            const p = document.createElement("p");
+            p.textContent = commentText;
+            document.getElementById("commentSection").appendChild(p);
+
+            currentUser.reviews.push(`Comment on "${currentFilm.title}": ${text} (${rating}⭐)`);
+            currentUser.name = name;
+            saveFilmsToStorage();
+
+            document.getElementById("commentBox").value = "";
+            updateProfile();
+        }
+
+        function updateProfile() {
+            document.getElementById("profileName").textContent = currentUser.name;
+            const list = document.getElementById("userReviews");
+            list.innerHTML = "";
+            currentUser.reviews.slice().reverse().forEach(item => {
+                const li = document.createElement("li");
+                li.className = "bg-[#001845] p-3 rounded-lg hover:bg-[#002855] transition-all";
+                li.innerHTML = `<i class="fas fa-comment-dots mr-2"></i>${item}`;
+                list.appendChild(li);
+            });
+        }
+
+        function renderLiked() {
+            const container = document.getElementById("likedList");
+            container.innerHTML = "";
+            films.filter(f => f.likes).forEach((film, index) => {
+                const card = document.createElement("div");
+                card.className = "film-card";
+                card.innerHTML = `
+                    <a href="#film-${films.indexOf(film)}"><img src="${film.poster}" alt="Poster" /></a>
+                    <h3><a href="#film-${films.indexOf(film)}">${film.title}</a></h3>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderBookmarks() {
+            const container = document.getElementById("bookmarkList");
+            container.innerHTML = "";
+            films.filter(f => f.bookmarked).forEach((film, index) => {
+                const card = document.createElement("div");
+                card.className = "film-card";
+                card.innerHTML = `
+                    <a href="#film-${films.indexOf(film)}"><img src="${film.poster}" alt="Poster" /></a>
+                    <h3><a href="#film-${films.indexOf(film)}">${film.title}</a></h3>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Listen to hash change for back/forward support
+        window.addEventListener("hashchange", () => {
+            const hash = location.hash.replace("#", "");
+            if (hash.startsWith("film-")) {
+                const index = parseInt(hash.split("-")[1]);
+                if (!isNaN(index)) viewFilm(index);
+            } else {
+                showSection(hash || "home");
+            }
+        });
+
+        // Load on first open
+        loadFilmsFromStorage();
+        loadFilms();
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+    </script>
+</body>
+</html>
