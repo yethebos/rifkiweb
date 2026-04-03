@@ -10,12 +10,12 @@
     
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            --primary-gradient: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%);
             --love-gradient: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
-            --glass-bg: rgba(30, 30, 50, 0.9);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --shadow-glow: 0 0 40px rgba(255, 107, 107, 0.3);
+            --glass-bg: rgba(20, 25, 35, 0.98);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --shadow-light: 0 20px 40px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 40px rgba(255, 107, 107, 0.4);
         }
 
         * {
@@ -39,23 +39,14 @@
             padding-bottom: 2rem;
         }
 
-        /* Animated Background */
+        /* Animated Background - DIPATIKAN */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(254, 202, 87, 0.1) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
+            background: rgba(0, 0, 0, 0.3);
             z-index: -2;
             pointer-events: none;
-        }
-
-        @keyframes backgroundShift {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(180deg); }
         }
 
         /* LOGIN PAGE */
@@ -66,13 +57,13 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
         }
 
         .login-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 3rem 2.5rem;
@@ -109,7 +100,7 @@
         }
 
         .login-subtitle {
-            color: rgba(255, 255, 255, 0.9);
+            color: #ffffff;
             font-size: 1.1rem;
             font-weight: 400;
         }
@@ -122,19 +113,18 @@
         #passwordInput {
             width: 100%;
             padding: 1.25rem 1.5rem;
-            background: var(--glass-bg);
-            border: 2px solid var(--glass-border);
+            background: rgba(15, 20, 30, 0.98);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
-            color: white;
+            color: #ffffff;
             font-size: 1.1rem;
             font-weight: 500;
             text-align: center;
-            backdrop-filter: blur(15px);
             transition: all 0.3s ease;
         }
 
         #passwordInput::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         #passwordInput:focus {
@@ -142,6 +132,7 @@
             border-color: #ff6b6b;
             box-shadow: var(--shadow-glow);
             transform: scale(1.02);
+            background: rgba(15, 20, 30, 1);
         }
 
         .unlock-button {
@@ -191,7 +182,7 @@
             box-shadow: 
                 0 0 0 4px rgba(255, 255, 255, 0.1),
                 var(--shadow-light),
-                inset 0 0 40px rgba(255, 255, 255, 0.05);
+                inset 0 0 40px rgba(0, 0, 0, 0.5);
             object-fit: cover;
             transition: all 0.4s ease;
             animation: gentleFloat 6s ease-in-out infinite;
@@ -200,8 +191,8 @@
         .profile-image:hover {
             transform: scale(1.08);
             box-shadow: 
-                0 0 0 6px rgba(255, 107, 107, 0.3),
-                0 20px 60px rgba(255, 107, 107, 0.4);
+                0 0 0 6px rgba(255, 107, 107, 0.4),
+                0 20px 60px rgba(255, 107, 107, 0.5);
         }
 
         @keyframes gentleFloat {
@@ -218,13 +209,15 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 1.5rem;
             line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .big-heart {
             font-size: clamp(5rem, 20vw, 10rem);
             margin: 2rem 0;
             animation: heartbeat 1.6s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.6));
+            filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.8));
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes heartbeat {
@@ -233,9 +226,9 @@
         }
 
         .message-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            background: rgba(20, 25, 35, 0.98);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 2.5rem 2rem;
             margin: 3rem auto;
@@ -243,7 +236,7 @@
             box-shadow: var(--shadow-light);
             font-size: clamp(1.1rem, 3vw, 1.3rem);
             line-height: 1.7;
-            color: rgba(255, 255, 255, 0.98);
+            color: #ffffff;
         }
 
         /* Particles Container - HAPUS DISPLAY */
@@ -324,9 +317,9 @@
 
             <div class="message-card">
                 <p>
-                    happy 1st month, sayang. i’m so glad we met. you really mean a lot to me, and your presence brings me the happiness i’ve always yearned for.  
+                    happy 1st month, sayang. i'm so glad we met. you really mean a lot to me, and your presence brings me the happiness i've always yearned for.  
 
-all i want is to be with you forever. aku sayang sekali sama kamu, and i’ve never fallen this hard for anyone before, promise kita harus bareng terus ya!
+all i want is to be with you forever. aku sayang sekali sama kamu, and i've never fallen this hard for anyone before, promise kita harus bareng terus ya!
                     <i class="fas fa-infinity" style="color: #feca57;"></i>
                 </p>
             </div>
