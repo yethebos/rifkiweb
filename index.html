@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Anniversary ❤️</title>
+    <title>Happy 1st Month ❤️</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,10 +12,12 @@
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --love-gradient: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --shadow-glow: 0 0 40px rgba(255, 107, 107, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.15); /* FIX: Lebih opaque */
+            --glass-border: rgba(255, 255, 255, 0.3); /* FIX: Lebih tebal */
+            --shadow-light: 0 15px 35px rgba(0, 0, 0, 0.2); /* FIX: Shadow lebih kuat */
+            --shadow-glow: 0 0 30px rgba(255, 107, 107, 0.4);
+            --text-primary: rgba(255, 255, 255, 0.95); /* FIX: Teks lebih jelas */
+            --text-secondary: rgba(255, 255, 255, 0.85);
         }
 
         * {
@@ -31,34 +33,31 @@
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            height: 100%;
-            overflow-y: auto;
-            overflow-x: hidden;
             background: var(--primary-gradient);
             position: relative;
             padding-bottom: 2rem;
+            overflow-x: hidden;
         }
 
-        /* Animated Background */
+        /* Background - FIX Mobile */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(254, 202, 87, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(254, 202, 87, 0.3) 0%, transparent 50%);
             animation: backgroundShift 20s ease-in-out infinite;
             z-index: -2;
-            pointer-events: none;
         }
 
         @keyframes backgroundShift {
             0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(180deg); }
+            50% { transform: scale(1.05) rotate(180deg); }
         }
 
-        /* LOGIN PAGE */
+        /* LOGIN PAGE - FIX Glassmorphism Mobile */
         .login-page {
             position: fixed;
             inset: 0;
@@ -66,19 +65,21 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.6); /* FIX: Background lebih gelap */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px); /* FIX: Webkit support */
         }
 
         .login-card {
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.2); /* FIX: Lebih opaque */
             backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.4); /* FIX: Border lebih tebal */
             border-radius: 24px;
             padding: 3rem 2.5rem;
             width: clamp(350px, 90vw, 450px);
             text-align: center;
-            box-shadow: var(--shadow-light);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); /* FIX: Shadow lebih kuat */
             position: relative;
             animation: slideInUp 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
@@ -106,12 +107,14 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* FIX: Teks lebih jelas */
         }
 
         .login-subtitle {
-            color: rgba(255, 255, 255, 0.85);
+            color: var(--text-primary);
             font-size: 1.1rem;
             font-weight: 400;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3); /* FIX: Teks lebih jelas */
         }
 
         .input-group {
@@ -122,19 +125,20 @@
         #passwordInput {
             width: 100%;
             padding: 1.25rem 1.5rem;
-            background: var(--glass-bg);
-            border: 2px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.2); /* FIX: Input lebih opaque */
+            border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: 16px;
-            color: white;
+            color: var(--text-primary) !important; /* FIX: Teks input jelas */
             font-size: 1.1rem;
             font-weight: 500;
             text-align: center;
             backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             transition: all 0.3s ease;
         }
 
         #passwordInput::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.7) !important; /* FIX: Placeholder jelas */
         }
 
         #passwordInput:focus {
@@ -142,6 +146,7 @@
             border-color: #ff6b6b;
             box-shadow: var(--shadow-glow);
             transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.25); /* FIX: Focus state */
         }
 
         .unlock-button {
@@ -150,13 +155,14 @@
             background: var(--love-gradient);
             border: none;
             border-radius: 16px;
-            color: white;
+            color: white !important;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .unlock-button:hover {
@@ -187,11 +193,11 @@
             width: clamp(200px, 35vw, 300px);
             height: clamp(200px, 35vw, 300px);
             border-radius: 50%;
-            border: 6px solid rgba(255, 255, 255, 0.3);
+            border: 6px solid rgba(255, 255, 255, 0.5); /* FIX: Border lebih tebal */
             box-shadow: 
-                0 0 0 4px rgba(255, 255, 255, 0.2),
-                var(--shadow-light),
-                inset 0 0 40px rgba(255, 255, 255, 0.1);
+                0 0 0 8px rgba(255, 255, 255, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.4), /* FIX: Shadow lebih kuat */
+                inset 0 0 40px rgba(255, 255, 255, 0.2);
             object-fit: cover;
             transition: all 0.4s ease;
             animation: gentleFloat 6s ease-in-out infinite;
@@ -200,8 +206,8 @@
         .profile-image:hover {
             transform: scale(1.08);
             box-shadow: 
-                0 0 0 6px rgba(255, 107, 107, 0.3),
-                0 20px 60px rgba(255, 107, 107, 0.4);
+                0 0 0 10px rgba(255, 107, 107, 0.4),
+                0 25px 80px rgba(255, 107, 107, 0.5);
         }
 
         @keyframes gentleFloat {
@@ -218,13 +224,15 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 1.5rem;
             line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* FIX: Title lebih jelas */
         }
 
         .big-heart {
             font-size: clamp(5rem, 20vw, 10rem);
             margin: 2rem 0;
             animation: heartbeat 1.6s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.6));
+            filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.8)); /* FIX: Heart lebih glowing */
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
         }
 
         @keyframes heartbeat {
@@ -233,25 +241,22 @@
         }
 
         .message-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.2); /* FIX: Message lebih opaque */
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.4); /* FIX: Border lebih tebal */
             border-radius: 20px;
-            padding: 2.5rem 2rem;
+            padding: 3rem 2.5rem; /* FIX: Padding lebih besar */
             margin: 3rem auto;
             max-width: 650px;
-            box-shadow: var(--shadow-light);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3); /* FIX: Shadow lebih kuat */
             font-size: clamp(1.1rem, 3vw, 1.3rem);
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8; /* FIX: Line height lebih nyaman */
+            color: var(--text-primary) !important; /* FIX: Teks super jelas */
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); /* FIX: Teks shadow */
         }
 
-        /* Particles Container - HAPUS DISPLAY */
-        #particles {
-            display: none; /* HAPUS PARTICLES */
-        }
-
-        /* Responsive */
+        /* Responsive - FIX Mobile */
         @media (max-width: 768px) {
             body {
                 padding-bottom: 3rem;
@@ -262,8 +267,14 @@
             }
             
             .message-card {
-                padding: 2rem 1.5rem;
+                padding: 2.5rem 2rem;
                 margin: 2rem auto;
+                font-size: 1.1rem;
+            }
+            
+            .login-card {
+                margin: 1rem;
+                padding: 2.5rem 2rem;
             }
         }
 
@@ -281,16 +292,14 @@
 </head>
 
 <body>
-    <!-- HAPUS SEMUA Floating Hearts Background -->
-    
     <!-- Login Page -->
     <div class="login-page" id="loginPage">
         <div class="login-card">
             <div class="login-header">
                 <h1 class="login-title">
-                    <i class="fas fa-heart"></i> 
+                    <i class="fas fa-heart" style="margin-right: 0.5rem;"></i> 
                 </h1>
-                <p class="login-subtitle">our spesial date</p>
+                <p class="login-subtitle">our special date</p>
             </div>
             
             <div class="input-group">
@@ -304,30 +313,31 @@
             </div>
             
             <button class="unlock-button" onclick="checkPassword()">
-                <i class="fas fa-unlock"></i> unlock
+                <i class="fas fa-unlock" style="margin-right: 0.5rem;"></i> unlock
             </button>
         </div>
     </div>
 
     <!-- Main Page -->
     <div class="main-page" id="mainPage">
-        <div id="particles"></div>
-        
         <div class="main-content">
             <section class="profile-section">
-                <img src="1ee8cb19-6edb-497d-b8d7-4eae86f50239.jfif" class="profile-image" alt="Foto Kalian" onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=💕'">
+                <!-- FIX: Tambah loading & error handling -->
+                <img id="profileImg" src="1ee8cb19-6edb-497d-b8d7-4eae86f50239.jfif" class="profile-image" alt="Foto Kalian" 
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=💕+Foto';">
             </section>
 
-            <h1 class="main-title">Happy 1 Month Cantik </h1>
+            <h1 class="main-title">Happy 1st Month Cantik 💕</h1>
             
             <div class="big-heart">❤️</div> 
 
             <div class="message-card">
                 <p>
-                    happy 1st month, sayang. i’m so glad we met. you really mean a lot to me, and your presence brings me the happiness i’ve always yearned for.  
+                    happy 1st month, sayang. i'm so glad we met. you really mean a lot to me, and your presence brings me the happiness i've always yearned for.<br><br>
 
-all i want is to be with you forever. aku sayang sekali sama kamu, and i’ve never fallen this hard for anyone before, promise kita harus bareng terus ya!
-                    <i class="fas fa-infinity" style="color: #feca57;"></i>
+                    all i want is to be with you forever. aku sayang sekali sama kamu, and i've never fallen this hard for anyone before, promise kita harus bareng terus ya!<br><br>
+                    
+                    <i class="fas fa-infinity" style="color: #feca57; font-size: 1.5rem;"></i>
                 </p>
             </div>
         </div>
@@ -370,7 +380,7 @@ all i want is to be with you forever. aku sayang sekali sama kamu, and i’ve ne
             } else {
                 // Error feedback
                 input.value = '';
-                input.placeholder = 'Tanggal salah 💔';
+                input.placeholder = 'Wrong date 💔';
                 input.classList.add('shake');
                 
                 setTimeout(() => {
@@ -387,10 +397,19 @@ all i want is to be with you forever. aku sayang sekali sama kamu, and i’ve ne
             }
         });
 
-        // Auto-focus input
+        // Auto-focus input & preload image
         window.addEventListener('load', () => {
             document.getElementById('passwordInput').focus();
+            
+            // Preload profile image
+            const img = new Image();
+            img.src = '1ee8cb19-6edb-497d-b8d7-4eae86f50239.jfif';
         });
+
+        // Fix for mobile Safari scroll
+        document.addEventListener('touchmove', function(e) {
+            // Allow scroll
+        }, { passive: true });
     </script>
 </body>
 </html>
