@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Anniversary ❤️</title>
+    <title>Happy 1st Month ❤️</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%);
-            --love-gradient: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
-            --glass-bg: rgba(20, 25, 35, 0.98);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --shadow-light: 0 20px 40px rgba(0, 0, 0, 0.6);
-            --shadow-glow: 0 0 40px rgba(255, 107, 107, 0.4);
+            --primary-bg: linear-gradient(135deg, #4a69bd 0%, #5a4a8c 50%, #667eea 100%);
+            --love-gradient: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #ff9ff3 100%);
+            --card-bg: rgba(255, 255, 255, 0.95); /* OPAQUE PUTIH */
+            --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --text-dark: #2c3e50;
+            --text-light: #34495e;
+            --border-light: rgba(255, 255, 255, 0.8);
         }
 
         * {
@@ -31,25 +32,25 @@
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            height: 100%;
-            overflow-y: auto;
+            background: var(--primary-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
             overflow-x: hidden;
-            background: var(--primary-gradient);
-            position: relative;
-            padding-bottom: 2rem;
         }
 
-        /* Animated Background - DIPATIKAN */
+        /* Background Pattern - JELAS */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: -2;
-            pointer-events: none;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 75% 75%, rgba(255, 107, 107, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(254, 202, 87, 0.08) 0%, transparent 40%);
+            z-index: -1;
         }
 
-        /* LOGIN PAGE */
+        /* LOGIN PAGE - FULLY VISIBLE */
         .login-page {
             position: fixed;
             inset: 0;
@@ -57,21 +58,20 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(5px);
+            background: rgba(74, 105, 189, 0.95); /* BACKGROUND SOLID */
         }
 
         .login-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
+            background: var(--card-bg) !important;
             border-radius: 24px;
-            padding: 3rem 2.5rem;
-            width: clamp(350px, 90vw, 450px);
+            padding: 3.5rem 3rem;
+            width: clamp(360px, 90vw, 480px);
             text-align: center;
-            box-shadow: var(--shadow-light);
+            box-shadow: var(--card-shadow);
+            border: 3px solid var(--border-light);
             position: relative;
-            animation: slideInUp 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: slideInUp 0.8s ease-out;
+            backdrop-filter: none; /* HAPUS glass effect */
         }
 
         @keyframes slideInUp {
@@ -86,204 +86,209 @@
         }
 
         .login-header {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .login-title {
-            font-size: clamp(2rem, 5vw, 2.5rem);
-            font-weight: 700;
+            font-size: clamp(2.2rem, 6vw, 2.8rem);
+            font-weight: 800;
             background: var(--love-gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
         }
 
         .login-subtitle {
-            color: #ffffff;
-            font-size: 1.1rem;
-            font-weight: 400;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            font-weight: 500;
         }
 
         .input-group {
-            position: relative;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         #passwordInput {
             width: 100%;
-            padding: 1.25rem 1.5rem;
-            background: rgba(15, 20, 30, 0.98);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid rgba(255, 255, 255, 0.6);
             border-radius: 16px;
-            color: #ffffff;
-            font-size: 1.1rem;
-            font-weight: 500;
+            color: var(--text-dark) !important;
+            font-size: 1.3rem;
+            font-weight: 600;
             text-align: center;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         #passwordInput::placeholder {
-            color: rgba(255, 255, 255, 0.8);
+            color: #7f8c8d !important;
+            font-weight: 500;
         }
 
         #passwordInput:focus {
             outline: none;
             border-color: #ff6b6b;
-            box-shadow: var(--shadow-glow);
-            transform: scale(1.02);
-            background: rgba(15, 20, 30, 1);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            transform: translateY(-2px);
+            background: white;
         }
 
         .unlock-button {
             width: 100%;
-            padding: 1.25rem;
+            padding: 1.5rem 2rem;
             background: var(--love-gradient);
             border: none;
             border-radius: 16px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
+            color: white !important;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .unlock-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
         }
 
-        /* MAIN PAGE */
+        /* MAIN PAGE - FULLY VISIBLE */
         .main-page {
             display: none;
             min-height: 100vh;
-            padding: clamp(2rem, 8vh, 4rem) clamp(2rem, 10vw, 4rem);
+            padding: clamp(2.5rem, 10vh, 5rem) clamp(2rem, 8vw, 4rem);
             text-align: center;
-            position: relative;
-            z-index: 10;
         }
 
         .main-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .profile-section {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
         .profile-image {
-            width: clamp(200px, 35vw, 300px);
-            height: clamp(200px, 35vw, 300px);
+            width: clamp(220px, 40vw, 350px);
+            height: clamp(220px, 40vw, 350px);
             border-radius: 50%;
-            border: 6px solid rgba(255, 255, 255, 0.2);
+            border: 8px solid white;
             box-shadow: 
-                0 0 0 4px rgba(255, 255, 255, 0.1),
-                var(--shadow-light),
-                inset 0 0 40px rgba(0, 0, 0, 0.5);
+                0 0 0 12px rgba(255, 255, 255, 0.5),
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                inset 0 0 50px rgba(255, 255, 255, 0.3);
             object-fit: cover;
             transition: all 0.4s ease;
             animation: gentleFloat 6s ease-in-out infinite;
         }
 
         .profile-image:hover {
-            transform: scale(1.08);
+            transform: scale(1.1);
             box-shadow: 
-                0 0 0 6px rgba(255, 107, 107, 0.4),
-                0 20px 60px rgba(255, 107, 107, 0.5);
+                0 0 0 15px rgba(255, 107, 107, 0.4),
+                0 35px 100px rgba(255, 107, 107, 0.5);
         }
 
         @keyframes gentleFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
         }
 
         .main-title {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 50%, #ff6b6b 100%);
+            font-size: clamp(2.8rem, 10vw, 5rem);
+            font-weight: 900;
+            background: var(--love-gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
         }
 
         .big-heart {
-            font-size: clamp(5rem, 20vw, 10rem);
-            margin: 2rem 0;
-            animation: heartbeat 1.6s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.8));
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-size: clamp(6rem, 25vw, 12rem);
+            margin: 2.5rem 0;
+            animation: heartbeat 1.8s ease-in-out infinite;
+            filter: drop-shadow(0 10px 40px rgba(255, 107, 107, 0.6));
+            text-shadow: 0 5px 25px rgba(255, 107, 107, 0.4);
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.25); }
+            50% { transform: scale(1.3); }
         }
 
         .message-card {
-            background: rgba(20, 25, 35, 0.98);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            margin: 3rem auto;
-            max-width: 650px;
-            box-shadow: var(--shadow-light);
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
-            line-height: 1.7;
-            color: #ffffff;
+            background: var(--card-bg) !important;
+            border-radius: 24px;
+            padding: 4rem 3.5rem;
+            margin: 4rem auto;
+            max-width: 750px;
+            box-shadow: var(--card-shadow);
+            border: 3px solid var(--border-light);
+            font-size: clamp(1.2rem, 4vw, 1.4rem);
+            line-height: 1.8;
+            color: var(--text-dark) !important;
+            font-weight: 400;
+            text-align: left; /* FIX: Better readability */
         }
 
-        /* Particles Container - HAPUS DISPLAY */
-        #particles {
-            display: none; /* HAPUS PARTICLES */
+        .message-card p {
+            font-size: inherit;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            body {
-                padding-bottom: 3rem;
-            }
-            
             .main-page {
-                padding: 2rem 1.5rem;
+                padding: 2.5rem 1.5rem;
             }
             
             .message-card {
-                padding: 2rem 1.5rem;
-                margin: 2rem auto;
+                padding: 3rem 2rem;
+                margin: 3rem 1rem;
+                text-align: center;
+                font-size: 1.15rem;
+            }
+            
+            .login-card {
+                margin: 2rem;
+                padding: 3rem 2.5rem;
             }
         }
 
         /* Shake Animation */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         .shake {
-            animation: shake 0.4s ease-in-out;
+            animation: shake 0.5s ease-in-out;
+            border-color: #e74c3c !important;
         }
     </style>
 </head>
 
 <body>
-    <!-- HAPUS SEMUA Floating Hearts Background -->
-    
     <!-- Login Page -->
     <div class="login-page" id="loginPage">
         <div class="login-card">
             <div class="login-header">
                 <h1 class="login-title">
-                    <i class="fas fa-heart"></i> 
+                    <i class="fas fa-heart" style="margin-right: 1rem; font-size: 1.2em;"></i>
+                    Special Date
                 </h1>
-                <p class="login-subtitle">our spesial date</p>
+                <p class="login-subtitle">Enter our special date</p>
             </div>
             
             <div class="input-group">
@@ -297,30 +302,29 @@
             </div>
             
             <button class="unlock-button" onclick="checkPassword()">
-                <i class="fas fa-unlock"></i> unlock
+                <i class="fas fa-unlock" style="margin-right: 0.8rem;"></i>
+                Unlock Message
             </button>
         </div>
     </div>
 
     <!-- Main Page -->
     <div class="main-page" id="mainPage">
-        <div id="particles"></div>
-        
         <div class="main-content">
             <section class="profile-section">
-                <img src="1ee8cb19-6edb-497d-b8d7-4eae86f50239.jfif" class="profile-image" alt="Foto Kalian" onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=💕'">
+                <img id="profileImg" src="1ee8cb19-6edb-497d-b8d7-4eae86f50239.jfif" class="profile-image" alt="Our Photo" 
+                     onerror="this.src='https://via.placeholder.com/350x350/4a69bd/ffffff?text=💕+Photo';">
             </section>
 
-            <h1 class="main-title">Happy 1 Month Cantik </h1>
+            <h1 class="main-title">Happy 1st Month Cantik 💕</h1>
             
             <div class="big-heart">❤️</div> 
 
             <div class="message-card">
                 <p>
-                    happy 1st month, sayang. i'm so glad we met. you really mean a lot to me, and your presence brings me the happiness i've always yearned for.  
-
-all i want is to be with you forever. aku sayang sekali sama kamu, and i've never fallen this hard for anyone before, promise kita harus bareng terus ya!
-                    <i class="fas fa-infinity" style="color: #feca57;"></i>
+                    happy 1st month, sayang. i'm so glad we met. you really mean a lot to me, and your presence brings me the happiness i've always yearned for.<br><br>
+                    
+                    all i want is to be with you forever. aku sayang sekali sama kamu, and i've never fallen this hard for anyone before, promise kita harus bareng terus ya!
                 </p>
             </div>
         </div>
@@ -334,53 +338,31 @@ all i want is to be with you forever. aku sayang sekali sama kamu, and i've neve
             const inputValue = input.value.trim();
 
             if (inputValue === CORRECT_PASSWORD) {
-                // Hide login page
-                const loginPage = document.getElementById('loginPage');
-                loginPage.style.opacity = '0';
-                loginPage.style.transform = 'scale(0.95)';
+                document.getElementById('loginPage').style.opacity = '0';
+                document.getElementById('loginPage').style.transform = 'scale(0.95)';
                 
                 setTimeout(() => {
-                    loginPage.style.display = 'none';
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('mainPage').style.display = 'block';
                     
-                    // Show main page
-                    const mainPage = document.getElementById('mainPage');
-                    mainPage.style.display = 'block';
-                    
-                    // Smooth entrance animation
                     setTimeout(() => {
-                        mainPage.style.opacity = '0';
-                        mainPage.style.transform = 'scale(0.95)';
-                        mainPage.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-                        
-                        setTimeout(() => {
-                            mainPage.style.opacity = '1';
-                            mainPage.style.transform = 'scale(1)';
-                        }, 50);
-                    }, 100);
-                    
+                        document.getElementById('mainPage').style.opacity = '1';
+                        document.getElementById('mainPage').style.transform = 'scale(1)';
+                    }, 50);
                 }, 400);
-                
             } else {
-                // Error feedback
                 input.value = '';
-                input.placeholder = 'Tanggal salah 💔';
+                input.placeholder = 'Wrong date! Try again';
                 input.classList.add('shake');
-                
-                setTimeout(() => {
-                    input.classList.remove('shake');
-                    input.placeholder = 'DDMMYY';
-                }, 500);
+                setTimeout(() => input.classList.remove('shake'), 500);
+                setTimeout(() => input.placeholder = 'DDMMYY', 1500);
             }
         }
 
-        // Enter key support
         document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
+            if (e.key === 'Enter') checkPassword();
         });
 
-        // Auto-focus input
         window.addEventListener('load', () => {
             document.getElementById('passwordInput').focus();
         });
